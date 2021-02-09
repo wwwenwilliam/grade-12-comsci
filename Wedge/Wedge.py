@@ -34,10 +34,10 @@ def getRandomCard(deckCards, numSuits, numCards):
 def lostCheck(playerNum, playerMoney):
     #takes a player's number(0 included) & list of player accounts
     #returns true & prints losing message if player is bankrupt
-    if playerMoney < 0:
+    if playerMoney <= 0:
         print("Player {} is bankrupt".format(playerNum+1))
         #print player accounts
-        print("Player Accounts: {}".format(playerAcccounts))
+        print("Player Accounts: {}".format(playerAccounts))
         return True
     else:
         return False
@@ -64,73 +64,97 @@ def compareTwoCards(cardOne, cardTwo, aceHighLow):
     else:
         return cardOne[0] > cardTwo[0]
             
+def initializeDeck(numSuits, numCards):
+    #returns a full deck of cards
+    #I reversed this here because numbers have higher ordering precedance than suits
+    deckCards = [[True] * numSuits for i in range(numCards)]
+    return deckCards
 
+def checkAmountOfCards(deckCards):
+    #takes a deck of cards
+    #returns true if there are enough cards
+    count = 0
+    threshold = 30
+    for card in deckCards:
+        if card:
+            count += 1
+    return count < threshold
 
-##setup for cards/deck
-numSuits = 4
-numCards = 13
-#I reversed this here because numbers have higher ordering precedance than suits
-deckCards = [[True] * numSuits for i in range(numCards)]
-suitValue = ["DIAMONDS", "CLUBS", "HEARTS", "SPADES"]
-cardValue = ["ACE", "TWO", "THREE", "FOUR", "FIVE", "SIX", 
+def displayCard(card, title):
+    #takes card (a tuple)
+    #prints card to console
+    print("{}: {} of {}".format(
+            title, CARDVALUES[card[0]], SUITVALUES[card[1]]
+            )
+        )
+    
+
+##deck constants
+SUITVALUES = ["DIAMONDS", "CLUBS", "HEARTS", "SPADES"]
+CARDVALUES = ["ACE", "TWO", "THREE", "FOUR", "FIVE", "SIX", 
              "SEVEN", "EIGHT", "NINE", "TEN", "JACK", "QUEEN", "KING"]
 
-##setup for money
+##setup
 numPlayers = int(input("Enter number of people playing: "))
-
-playerAccounts = [1000 for i in range(numPlayers)]
-ante = 100
+playerAccounts = [100 for i in range(numPlayers)]
+ante = 10
 pot = 500
+numSuits = 4
+numCards = 13
+deckCards = initializeDeck(numSuits, numCards)
+gameRunning = True
 
 ##turn
-while True:
+while gameRunning:
     for numPlayer in range(numPlayers):
-        #if player is bankrupt, move to next
-        if playerAccounts[numPlayer] < 0:
-            continue
-        #each player's turn
+        #check amount of cards
+        if not checkAmountOfCards(deckCards):
+            deckCards = initializeDeck(numSuits, numCards)
+            print("Deck restocked")
+        ##each player's turn
+        print()
+        print()
         print("Player {}'s turn".format(numPlayer+1))
         print("Your money: {}".format(playerAccounts[numPlayer]))
         #subtract ante
-        playerAccounts[numPlayer] -= 100
-        #ask if ace is high or low
-        validAceInputs = ["HIGH", "LOW"]
-        aceHighLow = getValidSelection(validAceInputs, 
-                                       "Is ace HIGH or LOW? ")       
+        playerAccounts[numPlayer] -= ante
         #generate two random cards
         randomCardOne = getRandomCard(deckCards, numSuits, numCards)
         randomCardTwo = getRandomCard(deckCards, numSuits, numCards)
+        #display cards
+        displayCard(randomCardOne, "Card One")
+        displayCard(randomCardTwo, "Card Two")
+        if randomCardOne[0] == 0 or randomCardTwo[0] == 0:
+            #if a card is an ace
+            #ask if ace is high or low
+            validAceInputs = ["HIGH", "LOW"]
+            aceHighLow = getValidSelection(validAceInputs, 
+                                           "Is ace HIGH or LOW? ")
+        else:
+            aceHighLow = False
         #sort cards
         if compareTwoCards(randomCardOne, randomCardTwo, aceHighLow):
             bothCards = [randomCardOne, randomCardTwo]
         else:
             bothCards = [randomCardTwo, randomCardOne]
-        print("Card one: {} of {}".format(
-            cardValue[bothCards[0][0]], suitValue[bothCards[0][1]]
-            )
-        )
-        print("Card two: {} of {}".format(
-            cardValue[bothCards[1][0]], suitValue[bothCards[1][1]]
-            )
-        )
+        ##player bets
         #ask if player wants to pass
         validPassInputs = ["YES", "NO"]
         doesPass = getValidSelection(validPassInputs, 
                                      "Do you want to pass? (YES/NO) ")
         if doesPass == "YES":
             lostCheck(numPlayer, playerAccounts[numPlayer])
-            print()
-            print()
             continue
         else:
             #ask player to bet
             print("The pot has {} dollars".format(pot))
-            playerBet = getValidNum(ante, pot, 
+            print("You have {} dollars".format(playerAccounts[numPlayer]))
+            playerBet = getValidNum(ante, min(pot, playerAccounts[numPlayer]), 
                                     "How much would you like to bet? ")
             #generate another card and see if it's between
             randomCardThree = getRandomCard(deckCards, numSuits, numCards)
             print("Card three: {} of {}".format(
-                cardValue[randomCardThree[0]], suitValue[randomCardThree[1]]
+                CARDVALUES[randomCardThree[0]], SUITVALUES[randomCardThree[1]]
                 )
             )
             if (compareTwoCards(randomCardThree, bothCards[1], aceHighLow) and 
@@ -142,11 +166,10 @@ while True:
                 pot += playerBet
                 playerAccounts[numPlayer] -= playerBet
                 print("You lost {} dollars".format(playerBet))
-        #see if player is bankrupt
-        lostCheck(numPlayer, playerAccounts[numPlayer])
-        print()
-        print()
-              
+        #see if player or pot(house) is bankrupt
+        if pot <= 0 or lostCheck(numPlayer, playerAccounts[numPlayer]):
+            gameRunning = False
+            break
         
     
     
