@@ -4,9 +4,9 @@ def bubbleSort(passedList):
     #takes a list
     #returns sorted version of list
     limit = len(passedList)
-    for i in range(limit):
+    for i in range(1, limit):
         isSorted = True
-        for j in range(limit-1):
+        for j in range(limit-i):
             if passedList[j] > passedList[j+1]:
                 (passedList[j], passedList[j+1]) = (passedList[j+1], passedList[j])
                 isSorted = False
@@ -18,9 +18,9 @@ def bubbleSortDimensional(column, passedList):
     #takes a list
     #returns sorted version of list
     limit = len(passedList)
-    for i in range(limit):
+    for i in range(1, limit):
         isSorted = True
-        for j in range(limit-1):
+        for j in range(limit-i):
             if passedList[j][column] > passedList[j+1][column]:
                 (passedList[j], passedList[j+1]) = (passedList[j+1], passedList[j])
                 isSorted = False
