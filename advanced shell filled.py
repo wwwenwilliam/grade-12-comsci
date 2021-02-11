@@ -41,6 +41,7 @@ asciiList = asciiString.split( ',' )
 
 
 def initDeck( startingCardsPercent, numSuits, numCards ):
+    #returns a full deck
     return( int( startingCardsPercent * numSuits * numCards ), [ [ True ] * numCards for i in range( numSuits)   ] )
 
 
@@ -57,6 +58,8 @@ def bubbleSort ( whichCol, arrayToSort ):
     return( arrayToSort )
 
 def getValidNum( whichMessage, lowNum, highNum ):
+    #takes a low number & high number
+    #returns a the user's valid input
     validNum = int( input( messageList[ whichMessage ] ))
     keepGoing = ( validNum < lowNum ) or ( validNum > highNum )
     while keepGoing:
@@ -76,6 +79,7 @@ def getValidSelection( whichMessage, validList ):
     return ( validSelection )
 
 def getACard( numSuits, numCards, cardDeck ):
+    #returns a random card
     whichSuit = random.randint( 0, numSuits - 1 )
     whichCardValue = random.randint( 0, numCards - 1 )
     while cardDeck [ whichSuit][ whichCardValue ] == False:
@@ -85,6 +89,8 @@ def getACard( numSuits, numCards, cardDeck ):
     return ( [ whichSuit, whichCardValue ] )
 
 def getAHand( whichCol, numCardsToTake, numSuits, numCards, cardDeck ):
+    #takes parameter to sort by, and number of cards to return
+    #returns random sorted hand
     cardHand = []
     for i in range(numCardsToTake):
         cardHand.append(getACard( numSuits, numCards, cardDeck ))
@@ -92,18 +98,22 @@ def getAHand( whichCol, numCardsToTake, numSuits, numCards, cardDeck ):
     return( cardHand )
 
 def makeBet( playerInfo, minBet, maxBet ):
+    #returns a valid bet
     playerBet = getValidNum(0, minBet, maxBet)
     return ( playerBet )
 
 def displayCards( whereToStart, playerHand ):
+    #prints cards to console
     for i in range(whereToStart, len(playerHand)):
         print(suitValue[playerHand[i][0]], "of", cardValue[playerHand[i][1]])
 
 def reportResults( playerInfo ):
+    #prints accounts to console
     print("Account values: ")
     print(playerInfo)
 
 def checkWin ( playerHand ):
+    #checks if card is in between two values
     if(playerHand[0][1] >= playerHand[2][1] and playerHand[1][1] >= playerHand[2][1]):
         win = True
     else:
