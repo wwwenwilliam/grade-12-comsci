@@ -34,6 +34,8 @@ def isAce(card):
     #returns true if it is an ace
     
 def adjustAce():
+    #takes nothing
+    #returns if ace high(True) or low(False)
     
 def compareBet(hand, card, aceStatus):
     #takes a hand and a card
@@ -46,6 +48,9 @@ def loseCheck(whichPlayer, playerInfo):
 def updateMoney(won, bet, whichPlayer, playerInfo):
     #takes a bet and two accounts in a tuple (player, house)
     #returns updated money
+
+def askIfQuit():
+    #returns true if player wants to quit
     
 # Global variable declarations
 numSuits = 4
@@ -96,10 +101,13 @@ def draw():
     won = compareBet(hand, lastCard, aceStatus)
     ##update money
     (playerInfo[whichPlayer][1], playerInfo[2][1]) = updateMoney(won, playerBet, whichPlayer, playerInfo)
-    ##check if player is out of money
-    loseCheck(whichPlayer, playerInfo)
-    ##check if house is out of money
-    loseCheck(3, playerInfo)
+    ##check if player or house is out of money
+    quit = loseCheck(whichPlayer, playerInfo) or loseCheck(3, playerInfo)
+    ##check if player wants to quit
+    quit = askIfQuit()
+    ##check if we go on
+    if quit:
+        noLoop()
     ##pass turn on
     whichPlayer = !whichPlayer
         
