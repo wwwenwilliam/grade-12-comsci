@@ -79,6 +79,8 @@ def getValidSelection( whichMessage, validList ):
     return ( validSelection )
 
 def getACard( numSuits, numCards, cardDeck ):
+    global cardsLeft
+    cardsLeft -= 1
     #returns a random card
     whichSuit = random.randint( 0, numSuits - 1 )
     whichCardValue = random.randint( 0, numCards - 1 )
