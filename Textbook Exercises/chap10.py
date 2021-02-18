@@ -1,87 +1,3 @@
-## 2
-def Q2():
-    myList = []
-    myList.append(76)
-    myList.append(92.3)
-    myList.append("hello")
-    myList += [True] + [4] + [76]
-    return myList
-    
-#print(Q2())
-
-## 3
-def Q3():
-    myList = Q2()
-    myList.append("apple")
-    myList.append(76)
-    myList.insert(0, 99)
-    print(myList.index("hello"))
-    print(myList.count(76))
-    myList.remove(76)
-    myList.pop(myList.index(True))
-    return myList
-    
-#print(Q3())
-
-## 4
-def average(passedList):
-    numSum = 0
-    for num in passedList:
-        numSum += num
-    return numSum/len(passedList)
-
-#print(average([1, 2, 3, 4, 5]))
-
-## 5
-def maximum(passedList):
-    big = 0
-    for num in passedList:
-        if num > big:
-            big = num
-    return big
-
-#print(maximum([1, 2, 3, 4, 5]))
-
-## 6
-def sum_of_squares(xs):
-    numSum = 0
-    for x in xs:
-        numSum += x**2
-    return numSum
-
-#print(sum_of_squares([1, 2, 3, 4, 5]))
-
-
-## 7
-def odd(passedList):
-    count = 0
-    for num in passedList:
-        if not(num % 2 == 0):
-            count+=1
-    return count
-
-#print(odd([1, 2, 3, 4, 5]))
-
-## 8
-def even(passedList):
-    count = 0
-    for num in passedList:
-        if num % 2 == 0:
-            count+=1
-    return count
-
-#print(even([1, 2, 3, 4, 5]))
-
-## 9
-def negativeSum(passedList):
-    numSum = 0
-    for num in passedList:
-        if num < 0:
-            numSum += num
-    return numSum
-
-#print(negativeSum([1, -2, 3, -4, 5]))
-
 ## 10
 def countfivelenwords(passedList):
     count = 0
@@ -167,10 +83,69 @@ def myreplace(string, old, new):
     return "".join(charlist)
 #print(myreplace('Mississippi', 'i', 'I'))
 
-## 15
-## 16
+## 15 & 16
+import turtle
+def expandL(rulekeys, rules, string, depth):
+    for i in range(depth):
+        for j in range(len(rules)):
+            string = applyRule(rulekeys[j], rules[j], string)
+            return string
 
-## 17
-import random
-randlist = [random.randint(0, 1000) for i in range(100)]
-print(randlist)
+def applyRule(rulekey, rule, string):
+    stringlist = list(string)
+    for i in range(len(stringlist)):
+        if stringlist[i] == rulekey:
+            stringlist[i] = rule
+    return "".join(stringlist)
+    
+def drawLines(string, turtlein, distance, angle):
+    savedTurtles = []
+    for char in string:
+        if char == "F":
+            turtlein.forward(distance)
+        elif char == "B":
+            turtlein.backward(distance)
+        elif char == "+":
+            turtlein.right(angle)
+        elif char == "-":
+            turtlein.left(angle)
+        elif char == "[":
+            savedTurtles.append(turtlein.clone())
+        elif char == "]":
+            turtlein = savedTurtles[-1]
+            savedTurtles.pop(-1)
+
+def Q15driver():
+    rulekeys = ["H", "X"]
+    rules = ["HFX[+H][-H]", "X[-FFF][+FFF]FX"]
+    
+    wn = turtle.Screen()
+    clyde = turtle.Turtle()
+    
+    string = expandL(rulekeys, rules, "H", 4)
+    print(string)
+    drawLines(string, clyde, 50, 25)
+    
+Q15driver()
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
