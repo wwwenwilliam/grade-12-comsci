@@ -1,4 +1,7 @@
-## 10
+##chapter 10-lists&stuff
+# Chapter 10
+# Exercise # 10
+
 def countfivelenwords(passedList):
     count = 0
     for word in passedList:
@@ -6,9 +9,8 @@ def countfivelenwords(passedList):
             count += 1
     return count
 
-#print(countfivelenwords(["hello", "bye", "hi", "words"]))
+# Exercise # 11
 
-## 11
 def uptoevenSum(passedList):
     numSum = 0
     for num in passedList:
@@ -17,9 +19,8 @@ def uptoevenSum(passedList):
         numSum += num
     return numSum
 
-#print(uptoevenSum([1, 3, 4, 5]))
+# Exercise # 12
 
-## 12
 def uptosam(passedList):
     count = 0
     for word in passedList:
@@ -28,9 +29,8 @@ def uptosam(passedList):
             break
     return count
 
-#print(uptosam(["hi", "hi", "hi", "sam", "hi"]))
+# Exercise # 13
 
-## 13
 #count
 def mycount(obj, passedList):
     count = 0
@@ -39,7 +39,6 @@ def mycount(obj, passedList):
         if thing == obj:
             break
     return count
-#print(mycount(3, [1, 2, 3, 4, 5, 3, 4, 3]))
 
 #in
 def myin(obj, passedList):
@@ -49,8 +48,6 @@ def myin(obj, passedList):
             return True
         index += 1
     return False
-#print(myin(3, [1, 2, 3, 4, 5]))
-#print(myin(6, [1, 2, 3, 4, 5]))
 
 #reverse
 def myreverse(passedList):
@@ -58,7 +55,6 @@ def myreverse(passedList):
     for i in range(1, len(passedList)+1):
         outList.append(passedList[-i])
     return outList
-#print(myreverse([1, 2, 3, 4, 5]))
 
 #index
 def myindex(obj, passedList):
@@ -66,25 +62,22 @@ def myindex(obj, passedList):
         if passedList[i] == obj:
             return i
     return -1
-#print(myindex(3, [1, 2, 3, 4, 5]))
 
 #insert
 def myinsert(index, obj, passedList):
     return passedList[:index] + [obj] + passedList[index:]
-#print(myinsert(3, 0, [1, 2, 3, 4, 5]))
 
+# Exercise # 14
 
-## 14
 def myreplace(string, old, new):
     charlist = list(string)
     for i in range(len(charlist)):
         if charlist[i] == old:
             charlist[i] = new
     return "".join(charlist)
-#print(myreplace('Mississippi', 'i', 'I'))
 
-## 15 & 16
-import turtle
+# Exercise # 15 & 16
+
 def expandL(rulekeys, rules, string, depth):
     for i in range(depth):
         for j in range(len(rules)):
@@ -116,33 +109,62 @@ def drawLines(string, turtlein, distance, angle):
             turtlein.setheading(lastTurtle[0])
             turtlein.setposition(lastTurtle[1], lastTurtle[2])
 
-##Q15 driver
+
+# ________________________________________
+
+# Call code for Exercise 10
+
+print(countfivelenwords(["hello", "bye", "hi", "words"]))
+
+# Call code for Exercise 11
+
+print(uptosam(["hi", "hi", "hi", "sam", "hi"]))
+
+# Call code for Exercise 12
+
+print(uptosam(["hi", "hi", "hi", "sam", "hi"]))
+
+# Call code for Exercise 13
+
+print(mycount(3, [1, 2, 3, 4, 5, 3, 4, 3]))
+
+print(myin(3, [1, 2, 3, 4, 5]))
+print(myin(6, [1, 2, 3, 4, 5]))
+
+print(myreverse([1, 2, 3, 4, 5]))
+
+print(myindex(3, [1, 2, 3, 4, 5]))
+print(myindex(7, [1, 2, 3, 4, 5]))
+
+print(myinsert(3, 0, [1, 2, 3, 4, 5]))
+
+# Call code for Exercise 14
+
+print(myreplace('Mississippi', 'i', 'I'))
+
+
+import turtle
 wn = turtle.Screen()
+# Call code for Exercise 15
 
-clyde = turtle.Turtle()
-rulekeys = ["H", "X"]
-rules = ["HFX[+H][-H]", "X[-FFF][+FFF]FX"]
+# clyde = turtle.Turtle()
+# rulekeys = ["H", "X"]
+# rules = ["HFX[+H][-H]", "X[-FFF][+FFF]FX"]
 
-string = expandL(rulekeys, rules, "H", 3)
-#drawLines(string, clyde, 10, 25.7)
-    
-##Q16 driver
-jim = turtle.Turtle()
-rulekeys = ["F"]
-rules = ["F[-F]F[+F]F"]
+# string = expandL(rulekeys, rules, "H", 3)
+# drawLines(string, clyde, 10, 25.7)
 
-string = expandL(rulekeys, rules, "F", 4)
-#drawLines(string, jim, 10, 25)
+# Call code for Exercise 16
 
-#an attempt to fix crashes
+# jim = turtle.Turtle()
+# rulekeys = ["F"]
+# rules = ["F[-F]F[+F]F"]
+
+# string = expandL(rulekeys, rules, "F", 3)
+# drawLines(string, jim, 10, 25)
+
 wn.exitonclick()
-turtle.done()
-turtle.bye()
 
-'''
-Note: the turtle graphics portion crashes on spyder, but runs fine when if it 
-is run directly in a python console
-'''
     
     
     

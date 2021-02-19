@@ -1,13 +1,5 @@
 ##chapter 11-file reading
-def splitIntoList(file):
-    student = []
-    for line in file:
-        currentLine = line.strip().split(" ")
-        student.append(currentLine)
-    return student
-
-#Q1
-file = open("studentdata.txt", 'r')
+# Exercise # 1-------------------------------------------
 
 def findStuOverSix(file):
     studentsOverSix = []
@@ -18,12 +10,8 @@ def findStuOverSix(file):
             studentsOverSix.append(student[0])
     return studentsOverSix
 
-#print(findStuOverSix(file))
+# Exercise # 2-------------------------------------------------
 
-file.close()
-
-#Q2
-file = open("studentdata.txt", 'r')
 def calcAverage(passedList):
     numSum = 0
     for i in passedList:
@@ -37,12 +25,8 @@ def findStuAverages(file):
         averages.append([student[0], calcAverage(student[1:])])
     return averages
 
-#print(findStuAverages(file))
-        
-file.close()
+# Exercise # 3--------------------------------------
 
-#Q3
-file = open("studentdata.txt", 'r')
 def findStuMinMax(file):
     students = splitIntoList(file)
     minmax = []
@@ -50,13 +34,8 @@ def findStuMinMax(file):
         minmax.append([student[0], min(student[1:]), max(student[1:])])
     return minmax
 
-#print(findStuMinMax(file))
-    
-file.close()
+# Exercise # 4------------------------------------------------
 
-#Q4
-import turtle
-file = open("labdata.txt", "r")
 def toInt(lines):
     for i in lines:
         for j in range(len(i)):
@@ -100,20 +79,12 @@ def question4(data, aturtle):
     #draw axis&points
     drawAxis(data, aturtle)
     drawPoints(data, aturtle)
-    turtle.up()
+    aturtle.up()
     
     #draw line
     plotRegression(data, aturtle)
     
-# wn = turtle.Screen()
-# alex = turtle.Turtle()  
-# linesin = toInt(splitIntoList(file))
-# question4(linesin, alex)
-# wn.exitonclick()
-file.close()
-
-#Q5
-file = open("mystery.txt", "r")
+# Exercise # 5---------------------------------------
 
 def drawPicture(data, aturtle):
     for line in data:
@@ -124,11 +95,49 @@ def drawPicture(data, aturtle):
         else:
             aturtle.goto(int(line[0]), int(line[1]))
 
+# ________________________________________
+
+def splitIntoList(file):
+    #used for multiple questions
+    student = []
+    for line in file:
+        currentLine = line.strip().split(" ")
+        student.append(currentLine)
+    return student
+
+file = open("studentdata.txt", 'r')
+# Call code for Exercise 1--------------
+# print(findStuOverSix(file))
+
+# Call code for Exercise 2--------------
+# print(findStuAverages(file))
+
+# Call code for Exercise 3--------------
+# print(findStuMinMax(file))
+
+file.close()
+
+# Call code for Exercise 4---------------
+
+import turtle
+file = open("labdata.txt", "r")
+
+# wn = turtle.Screen()
+# alex = turtle.Turtle()  
+# linesin = toInt(splitIntoList(file))
+# question4(linesin, alex)
+# wn.exitonclick()
+
+file.close()
+
+# Call code for Exercise 5-----------------
+
+file = open("mystery.txt", "r")
+
 # wn = turtle.Screen()
 # bill = turtle.Turtle()
 # data = splitIntoList(file)
 # drawPicture(data, bill)
 # wn.exitonclick()
+
 file.close()
-
-
