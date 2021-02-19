@@ -28,7 +28,7 @@ def bubbleSortDimensional(column, passedList):
             break
     return passedList
     
-numList = [7, 13, 15, 3, 6, 8]
+testList = [7, 13, 15, 3, 6, 8]
 # print(bubbleSort(numList))
 
 myList = [[ "Adam","Math",90 ], [ "Mike","English",70 ], [ "Bing Xin","CompSci",100 ]]
@@ -46,7 +46,7 @@ def selectionSort(passedList):
             if passedList[j] < minimum:
                 minimum = passedList[j]
                 minimumPosition = j
-        #put the minimum value at the start of the rest
+        #switch min value with value at correct pos
         passedList[i], passedList[minimumPosition] = passedList[minimumPosition], passedList[i]
     return passedList
 
@@ -59,13 +59,14 @@ def insertionSort(passedList):
     # takes list & sorts it
     length = len(passedList)
     for i in range(length-1):
+        #find minimum value in rest of list
         minimum = passedList[i]
         minimumPosition = i
         for j in range(i, length):
             if passedList[j] < minimum:
                 minimum = passedList[j]
                 minimumPosition = j
-
+        #put the minimum value at the start of the rest
         passedList.insert(i, passedList[minimumPosition])
         passedList.pop(minimumPosition+1)
 
@@ -84,6 +85,7 @@ def binarySearch(passedList, searchItem):
     middle = (bottom + top) // 2
     
     while True:
+        #adjust top/bottom
         if top == bottom:
             break
         if passedList[middle] == searchItem:
@@ -92,7 +94,9 @@ def binarySearch(passedList, searchItem):
             top = middle + 1
         else: 
             bottom = middle - 1
+        #recalc middle
         middle = (bottom + top) // 2
+    #check if thing was found
     if passedList[middle] == searchItem:
         return middle
     else:
@@ -103,9 +107,25 @@ testList = [2, 5, 6, 7, 8, 10, 15]
 # print(binarySearch(testList, 3))
 
 # Indirect Array addressing
+def indirectSorting(pList, valueList):
+    #modification of bubble sort
+    limit = len(valueList)
+    for i in range(1, limit):
+        isSorted = True
+        for j in range(limit-i):
+            if valueList[pList[j]] > valueList[pList[j+1]]:
+                (pList[j], pList[j+1]) = (pList[j+1], pList[j])
+                isSorted = False
+        if isSorted:
+            break
+    return pList
 
+pList = [0, 1, 2, 3, 4, 5]
+testList = [7, 13, 15, 3, 6, 8]
+# print(indirectSorting(pList, testList))
 
 # Reading from a file / writing to a file
+
 
 # Using pickle – you will need this in your major database program
 

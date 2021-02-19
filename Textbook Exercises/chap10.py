@@ -89,7 +89,7 @@ def expandL(rulekeys, rules, string, depth):
     for i in range(depth):
         for j in range(len(rules)):
             string = applyRule(rulekeys[j], rules[j], string)
-            return string
+    return string
 
 def applyRule(rulekey, rule, string):
     stringlist = list(string)
@@ -110,29 +110,39 @@ def drawLines(string, turtlein, distance, angle):
         elif char == "-":
             turtlein.left(angle)
         elif char == "[":
-            savedTurtles.append(turtlein.clone())
+            savedTurtles.append([turtlein.heading(), turtlein.xcor(), turtlein.ycor()])
         elif char == "]":
-            turtlein = savedTurtles[-1]
-            savedTurtles.pop(-1)
+            lastTurtle = savedTurtles.pop()
+            turtlein.setheading(lastTurtle[0])
+            turtlein.setposition(lastTurtle[1], lastTurtle[2])
 
-def Q15driver():
-    rulekeys = ["H", "X"]
-    rules = ["HFX[+H][-H]", "X[-FFF][+FFF]FX"]
+##Q15 driver
+wn = turtle.Screen()
+
+clyde = turtle.Turtle()
+rulekeys = ["H", "X"]
+rules = ["HFX[+H][-H]", "X[-FFF][+FFF]FX"]
+
+string = expandL(rulekeys, rules, "H", 3)
+#drawLines(string, clyde, 10, 25.7)
     
-    wn = turtle.Screen()
-    clyde = turtle.Turtle()
-    
-    string = expandL(rulekeys, rules, "H", 4)
-    print(string)
-    drawLines(string, clyde, 50, 25)
-    
-Q15driver()
-    
-    
-    
-    
-    
-    
+##Q16 driver
+jim = turtle.Turtle()
+rulekeys = ["F"]
+rules = ["F[-F]F[+F]F"]
+
+string = expandL(rulekeys, rules, "F", 4)
+#drawLines(string, jim, 10, 25)
+
+#an attempt to fix crashes
+wn.exitonclick()
+turtle.done()
+turtle.bye()
+
+'''
+Note: the turtle graphics portion crashes on spyder, but runs fine when if it 
+is run directly in a python console
+'''
     
     
     
