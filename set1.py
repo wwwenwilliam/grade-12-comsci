@@ -27,12 +27,6 @@ def bubbleSortDimensional(column, passedList):
         if isSorted:
             break
     return passedList
-    
-testList = [7, 13, 15, 3, 6, 8]
-# print(bubbleSort(numList))
-
-myList = [[ "Adam","Math",90 ], [ "Mike","English",70 ], [ "Bing Xin","CompSci",100 ]]
-# print(bubbleSortDimensional(0, myList))
 
 # Selection sort
 def selectionSort(passedList):
@@ -51,9 +45,6 @@ def selectionSort(passedList):
     return passedList
 
 
-testList = [3, 6, 2, 5, 9, 4]
-# print(selectionSort(testList))
-
 # Insertion sort
 def insertionSort(passedList):
     # takes list & sorts it
@@ -71,10 +62,6 @@ def insertionSort(passedList):
         passedList.pop(minimumPosition+1)
 
     return passedList
-
-
-testList = [5, 4, 32, 6236, 43, 26, 43, 2, 6, 23, 45, 243, 5]
-# print(insertionSort(testList))
 
 # Binary search
 def binarySearch(passedList, searchItem):
@@ -102,9 +89,6 @@ def binarySearch(passedList, searchItem):
     else:
         print("Item not found")
         return None
-    
-testList = [2, 5, 6, 7, 8, 10, 15]
-# print(binarySearch(testList, 3))
 
 # Indirect Array addressing
 def indirectSorting(pList, valueList):
@@ -120,14 +104,43 @@ def indirectSorting(pList, valueList):
             break
     return pList
 
-pList = [0, 1, 2, 3, 4, 5]
-testList = [7, 13, 15, 3, 6, 8]
-# print(indirectSorting(pList, testList))
-
 # Reading from a file / writing to a file
 
 
 # Using pickle – you will need this in your major database program
 
+
 # Building and walking a dictionary
 
+#----------------------------------------------------
+#call codes
+
+#bubbles
+testList = [7, 13, 15, 3, 6, 8]
+# print(bubbleSort(numList))
+
+myList = [[ "Adam","Math",90 ], [ "Mike","English",70 ], [ "Bing Xin","CompSci",100 ]]
+# print(bubbleSortDimensional(0, myList))
+
+#selection
+testList = [3, 6, 2, 5, 9, 4]
+# print(selectionSort(testList))
+
+#insertion
+testList = [5, 4, 32, 6236, 43, 26, 43, 2, 6, 23, 45, 243, 5]
+# print(insertionSort(testList))
+
+#bsearch
+testList = [2, 5, 6, 7, 8, 10, 15]
+# print(binarySearch(testList, 3))
+
+#indirect adressing
+pList = [0, 1, 2, 3, 4, 5]
+testList = [7, 13, 15, 3, 6, 8]
+# print(indirectSorting(pList, testList))
+
+#read/write files
+
+#pickle
+
+#dictonaries

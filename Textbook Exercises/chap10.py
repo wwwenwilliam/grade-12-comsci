@@ -25,7 +25,7 @@ def uptosam(passedList):
     count = 0
     for word in passedList:
         count += 1
-        if word == "sam":
+        if word.upper() == "SAM":
             break
     return count
 
@@ -114,15 +114,15 @@ def drawLines(string, turtlein, distance, angle):
 
 # Call code for Exercise 10
 
-print(countfivelenwords(["hello", "bye", "hi", "words"]))
+# print(countfivelenwords(["hello", "bye", "hi", "words"]))
 
 # Call code for Exercise 11
 
-print(uptosam(["hi", "hi", "hi", "sam", "hi"]))
+# print(uptoevenSum([3, 3, 3, 4, 3, 3]))
 
 # Call code for Exercise 12
 
-print(uptosam(["hi", "hi", "hi", "sam", "hi"]))
+# print(uptosam(["hi", "hi", "hi", "Sam", "hi"]))
 
 # Call code for Exercise 13
 
@@ -140,30 +140,32 @@ print(myinsert(3, 0, [1, 2, 3, 4, 5]))
 
 # Call code for Exercise 14
 
-print(myreplace('Mississippi', 'i', 'I'))
-
+# print(myreplace('Mississippi', 'i', 'I'))
 
 import turtle
-wn = turtle.Screen()
+
 # Call code for Exercise 15
 
+# wn = turtle.Screen()
 # clyde = turtle.Turtle()
 # rulekeys = ["H", "X"]
 # rules = ["HFX[+H][-H]", "X[-FFF][+FFF]FX"]
 
 # string = expandL(rulekeys, rules, "H", 3)
 # drawLines(string, clyde, 10, 25.7)
+# wn.exitonclick()
 
 # Call code for Exercise 16
 
+# wn = turtle.Screen()
 # jim = turtle.Turtle()
 # rulekeys = ["F"]
 # rules = ["F[-F]F[+F]F"]
 
 # string = expandL(rulekeys, rules, "F", 3)
 # drawLines(string, jim, 10, 25)
+# wn.exitonclick()
 
-wn.exitonclick()
 
     
     
