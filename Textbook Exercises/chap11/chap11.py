@@ -1,4 +1,12 @@
 ##chapter 11-file reading
+def splitIntoList(file):
+    #used for multiple questions
+    student = []
+    for line in file:
+        currentLine = line.strip().split(" ")
+        student.append(currentLine)
+    return student
+
 # Exercise # 1-------------------------------------------
 
 def findStuOverSix(file):
@@ -96,14 +104,6 @@ def drawPicture(data, aturtle):
             aturtle.goto(int(line[0]), int(line[1]))
 
 # ________________________________________
-
-def splitIntoList(file):
-    #used for multiple questions
-    student = []
-    for line in file:
-        currentLine = line.strip().split(" ")
-        student.append(currentLine)
-    return student
 
 file = open("studentdata.txt", 'r')
 # Call code for Exercise 1--------------
