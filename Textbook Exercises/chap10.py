@@ -71,9 +71,14 @@ def myinsert(index, obj, passedList):
 
 def myreplace(string, old, new):
     charlist = list(string)
-    for i in range(len(charlist)):
-        if charlist[i] == old:
-            charlist[i] = new
+    indexofchanges = []
+    old = list(old)
+    lenold = len(old)
+    for i in range(len(charlist)-lenold, 0, -1):
+        if charlist[i:i+lenold] == old:
+            indexofchanges.append(i)
+    for i in indexofchanges:
+        charlist[i:i+lenold] = new
     return "".join(charlist)
 
 # Exercise # 15 & 16
@@ -126,17 +131,17 @@ def drawLines(string, turtlein, distance, angle):
 
 # Call code for Exercise 13
 
-print(mycount(3, [1, 2, 3, 4, 5, 3, 4, 3]))
+# print(mycount(3, [1, 2, 3, 4, 5, 3, 4, 3]))
 
-print(myin(3, [1, 2, 3, 4, 5]))
-print(myin(6, [1, 2, 3, 4, 5]))
+# print(myin(3, [1, 2, 3, 4, 5]))
+# print(myin(6, [1, 2, 3, 4, 5]))
 
-print(myreverse([1, 2, 3, 4, 5]))
+# print(myreverse([1, 2, 3, 4, 5]))
 
-print(myindex(3, [1, 2, 3, 4, 5]))
-print(myindex(7, [1, 2, 3, 4, 5]))
+# print(myindex(3, [1, 2, 3, 4, 5]))
+# print(myindex(7, [1, 2, 3, 4, 5]))
 
-print(myinsert(3, 0, [1, 2, 3, 4, 5]))
+# print(myinsert(3, 0, [1, 2, 3, 4, 5]))
 
 # Call code for Exercise 14
 
