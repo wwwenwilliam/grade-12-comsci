@@ -122,11 +122,11 @@ file.close()
 import turtle
 file = open("labdata.txt", "r")
 
-# wn = turtle.Screen()
-# alex = turtle.Turtle()  
-# linesin = toInt(splitIntoList(file))
-# question4(linesin, alex)
-# wn.exitonclick()
+wn = turtle.Screen()
+alex = turtle.Turtle()  
+linesin = toInt(splitIntoList(file))
+question4(linesin, alex)
+wn.exitonclick()
 
 file.close()
 
