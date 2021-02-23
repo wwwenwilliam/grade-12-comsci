@@ -58,23 +58,27 @@ def findAverages(data):
         xdata.append(i[0])
         ydata.append(i[1])
     return (sum(xdata)/length, sum(ydata)/length)
+
+def setworldcoords(numbers):
+    (worldxmin, worldxmax) = (min([i[0] for i in numbers]), max([i[0] for i in numbers]))
+    (worldymin, worldymax) = (min([i[1] for i in numbers]), max([i[1] for i in numbers]))
+    turtle.setworldcoordinates(worldxmin-10, worldymin-10, worldxmax+10, worldymax+10) 
     
 def plotRegression(numbers, aturtle):
     (xaverage, yaverage) = findAverages(numbers)
     n = len(numbers)
-    m = sum([number[0]*number[1]-n*xaverage*yaverage for number in numbers])/sum([number[0]**2-n*xaverage**2 for number in numbers])
-    
+    m = (sum([(number[0]*number[1]) for number in numbers])-(n*xaverage*yaverage))/(sum([(number[0]**2) for number in numbers])-n*(xaverage**2))
     aturtle.up()
-    for i in range(-50, 150):
-        aturtle.goto(i, yaverage+m*(i-xaverage))
+    for x in range(-50, 100):
+        aturtle.goto(x, yaverage+m*(x-xaverage))
         aturtle.down()
 
 def drawAxis(data, aturtle):
-    aturtle.goto(500, 0)
-    aturtle.goto(-500, 0)
+    aturtle.goto(100, 0)
+    aturtle.goto(-100, 0)
     aturtle.goto(0, 0)
-    aturtle.goto(0, 500)
-    aturtle.goto(0, -500)
+    aturtle.goto(0, 100)
+    aturtle.goto(0, -100)
 
 def drawPoints(points, aturtle):
     for point in points:
@@ -122,11 +126,12 @@ file.close()
 import turtle
 file = open("labdata.txt", "r")
 
-wn = turtle.Screen()
-alex = turtle.Turtle()  
-linesin = toInt(splitIntoList(file))
-question4(linesin, alex)
-wn.exitonclick()
+# wn = turtle.Screen()
+# alex = turtle.Turtle()  
+# linesin = toInt(splitIntoList(file))
+# setworldcoords(linesin)
+# question4(linesin, alex)
+# wn.exitonclick()
 
 file.close()
 

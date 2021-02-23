@@ -180,29 +180,100 @@ def indirectSorting(colNum, valueList):
     return pList
 
 # test code --------------------------------------------------
-pListName = indirectSorting(0, dataFile)
-pListCourse = indirectSorting(1, dataFile)
-pListMark = indirectSorting(2, dataFile)
+# pListName = indirectSorting(0, dataFile)
+# pListCourse = indirectSorting(1, dataFile)
+# pListMark = indirectSorting(2, dataFile)
 
-for pointer in pListName:
-    print(dataFile[pointer])
-print("")
+# for pointer in pListName:
+#     print(dataFile[pointer])
+# print("")
 
-for pointer in pListCourse:
-    print(dataFile[pointer])
-print("")
+# for pointer in pListCourse:
+#     print(dataFile[pointer])
+# print("")
 
-for pointer in pListMark:
-    print(dataFile[pointer])
-print("")
+# for pointer in pListMark:
+#     print(dataFile[pointer])
+# print("")
 
 #6.	Reading from a file / writing to a file - you can simply write the information from the file back to a file BUT show the different ways a file can be read and written to
 # Be sure to show how you can read and then write to to the same line you read from a file using the rw parameters
 
 
 #7.	Using pickle as you will need this in your major database program
+
+
 #8.	Building and walking a dictionary
 # Read the dictionary data file, use the words in the file as the keys to the main dictionary
 #Inside the main dictionary create a sub-dictionary where the keys are the letters found in the word - case doesn't matter - the field for that sub-dictionary will be how many times that
 #letter occurs
 #Then walk the dictionary and determine how many times each letter occurs - check the file so that you know what the result should be
+dataFile, numEntries = loadFileInfo( "dictionary data.txt" )
+dataFile = dataFile[0]
+
+def toUpper(data):
+    for i in range(len(data)):
+        data[i] = data[i].upper()
+    return data
+
+def createDict(aList, default):
+    newDict = {}
+    for element in aList:
+        newDict[element] = default
+    return newDict
+        
+def createSubDicts(aDict):
+    for key in aDict:
+        charList = list(key)
+        subDict = {}
+        for char in charList:
+            if char in subDict:
+                subDict[char] += 1
+            else:
+                subDict[char] = 1
+        aDict[key] = subDict
+    return aDict
+
+def findLetters(aDict):
+    newDict = {}
+    for key1 in aDict:
+        for key2 in aDict[key1]:
+            charList = list(key2)
+            for char in charList:
+                if char in newDict:
+                    newDict[char] += 1
+                else:
+                    newDict[char] = 1
+    return newDict
+            
+
+# test code --------------------------------------------------
+
+# dataFile = toUpper(dataFile)
+# aDict = createDict(dataFile, None)
+# aDict = createSubDicts(aDict)
+# letterDict = findLetters(aDict)
+# print(letterDict)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
