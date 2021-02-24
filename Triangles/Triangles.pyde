@@ -21,5 +21,3 @@ def draw():
 def mousePressed():
     global screen
     screen.addRandomGroup()
-    for group in screen.groups:
-        print(group.triangles)

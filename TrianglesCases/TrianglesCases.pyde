@@ -29,7 +29,7 @@ def loadFileInfo( fileName ):
 def turnToInt(data, numData):
     for i in range(numData):
         for j in range(1, len(data[i])):
-            data[i][j] = int(data[i][j])
+            data[i][j] = float(data[i][j])
     return data
     
 caseCounter = 0
@@ -37,7 +37,7 @@ caseCounter = 0
 def draw():
     background(0)
     global triangle1, triangle2, caseCounter
-    delay(3000)
+    delay(2000)
     
     (testCases, numOfCases) = loadFileInfo( "testcases.txt" )
     testCases = turnToInt(testCases, numOfCases)
