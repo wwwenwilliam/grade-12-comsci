@@ -1,32 +1,25 @@
+from Screen import Screen
 from Triangle import Triangle
 from LineSegment import LineSegment 
 
+screen = Screen([])
+
 def setup():
     size(800, 800)
-    
-line2 = LineSegment(random(800), random(800), random(800), random(800))
-triangle1 = Triangle(random(800), random(800), random(800), random(800), random(800), random(800))
-triangle2 = Triangle(random(800), random(800), random(800), random(800), random(800), random(800))
-
-def draw():
     background(0)
-    global triangle1, triangle2
+    textSize(30)
     stroke(255)
     strokeWeight(1)
 
+def draw():
+    global screen
+    background(0)
+    screen.drawGroups()
+    
 
-    
-    fill(255)
-    #triangle1 = Triangle(100, 100, 50, 530, 600, 500)
-    triangle1.drawTriangle()
-    
-    fill(255, 0, 0)
-    # triangle2 = Triangle(random(800), random(800), random(800), random(800), random(800), random(800))
-    triangle2.drawTriangle()
-    
-    print(triangle1.isCollision(triangle2))
 
 def mousePressed():
-    global triangle1, triangle2
-    triangle2 = Triangle(random(800), random(800), random(800), random(800), random(800), random(800))
-    triangle1 = Triangle(random(800), random(800), random(800), random(800), random(800), random(800))
+    global screen
+    screen.addRandomGroup()
+    for group in screen.groups:
+        print(group.triangles)
