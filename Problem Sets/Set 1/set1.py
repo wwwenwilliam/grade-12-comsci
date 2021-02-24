@@ -198,9 +198,50 @@ def indirectSorting(colNum, valueList):
 
 #6.	Reading from a file / writing to a file - you can simply write the information from the file back to a file BUT show the different ways a file can be read and written to
 # Be sure to show how you can read and then write to to the same line you read from a file using the rw parameters
+def readafile1(filename):
+    filelist = []
+    file = open(filename, "r")
+    for line in file:
+        filelist.append(line.strip())
+    file.close()
+    return filelist
 
+def readafile2(filename):
+    file = open(filename, "r")
+    filelist = file.read().split('\n')
+    file.close()
+    return filelist
+
+def readafile3(filename):
+    filelist = []
+    file = open(filename, "r")
+    filelist += file.readlines()
+    for i in range(len(filelist)):
+        filelist[i] = filelist[i].strip()
+    file.close()
+    return filelist
+    
+def writeafile(filename, lines):
+    file = open(filename, "w")
+    for line in lines:
+        file.write(line + '\n')
+    file.close()
+        
+
+#test code----------------------------
+readlist = readafile1("readwritetest.txt")
+print(readlist)
+
+writeafile("readwritetest.txt", readlist)
+
+readlist = readafile2("readwritetest.txt")
+print(readlist)
+
+readlist = readafile3("readwritetest.txt")
+print(readlist)
 
 #7.	Using pickle as you will need this in your major database program
+
 
 
 #8.	Building and walking a dictionary
