@@ -16,7 +16,10 @@ Case 5.2: point past inside, 348, 200, 221, 452, 575, 553,  195, 595, 448, 149, 
 Case 6: point almost touching, 316, 200, 174, 488, 427, 488,  316, 199, 682, 152, 201, 187
 Case 6.1: point almost touching, 316, 200, 174, 488, 427, 488,  428, 488, 644, 335, 617, 630
 Case 6.2: point almost touching, 316, 200, 174, 488, 427, 488,  174, 489, 57, 351, 80, 600
-Case 7: triangle fully inside, 317, 153, 85, 513, 717, 599,  337, 313, 279, 389, 400, 398
-Case 8: triangle "surrounded" by triangle, 180, 133, 82, 687, 744, 724,  475, 306, 482, 362, 587, 293
-Case 9: triangles far apart, 116, 442, 286, 631, 91, 691,  661, 69, 614, 296, 429, 121
-Case 10: two obtuse overlapping, 626, 121, 285, 303, 63, 616,  266, 136, 645, 284, 747, 506
+Case 7: edge almost touching, 353, 219, 179, 493, 573, 512,  269, 350, 178, 493, 48, 339
+Case 7.1: edge almost touching, 353, 219, 179, 493, 573, 512,  491, 402, 574, 512, 658, 458
+Case 7.2: edge almost touching, 353, 219, 179, 493, 573, 512,  573, 513, 242, 497, 571, 682
+Case 8: triangle fully inside, 317, 153, 85, 513, 717, 599,  337, 313, 279, 389, 400, 398
+Case 9: triangle "surrounded" by triangle, 180, 133, 82, 687, 744, 724,  475, 306, 482, 362, 587, 293
+Case 10: triangles far apart, 116, 442, 286, 631, 91, 691,  661, 69, 614, 296, 429, 121
+Case 11: two obtuse overlapping, 626, 121, 285, 303, 63, 616,  266, 136, 645, 284, 747, 506
