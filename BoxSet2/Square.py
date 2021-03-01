@@ -124,6 +124,24 @@ class Square():
             return True
         return False
     
+    @staticmethod
+    def findSwitch(aSquare, direction, aLine):
+        switch = None
+        if direction[0] == 1:
+            if aSquare.lineToLeft(aLine):
+                switch = "HORIZONTAL"
+        else:
+            if aSquare.lineToRight(aLine):
+                switch = "HORIZONTAL"
+        
+        if direction[1] == 1:
+            if aSquare.lineToTop(aLine):
+                switch = "VERTICAL"
+        else:
+            if aSquare.lineToBottom(aLine):
+                switch = "VERTICAL"
+        return switch
+        
     
     @staticmethod
     def squareCollision(oneSquare, twoSquare):

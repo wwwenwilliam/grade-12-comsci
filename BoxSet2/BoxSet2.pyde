@@ -6,7 +6,7 @@ squares = AllSquares([])
 def setup():
     global squares
     size(800, 800)
-    squares.addASquare(Square(350, 400, 400, 400, 0, 0))
+    squares.addASquare(Square(0, 0, 400, 400, 0, 0))
     squares.addASquare(Square(100, 100, 100, 100, 5, 5))
     
 def draw():

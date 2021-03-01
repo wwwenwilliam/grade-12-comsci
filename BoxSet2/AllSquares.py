@@ -37,30 +37,39 @@ class AllSquares:
         for squ1 in self.squares:
             for squ2 in self.squares:
                 if squ1 != squ2:
-                    if squ1.willCollide(squ2):                        
+                    if squ1.willCollide(squ2): 
+                        squ1direction = None
+                                            
                         if squ1.velx == 0:
-                            switch = "HORIZONTAL"
-                        elif squ1.vely == 0:
                             switch = "VERTICAL"
+                        elif squ1.vely == 0:
+                            switch = "HORIZONTAL"
                         else:
                             squ1direction = squ1.findDirection()
                             squ1line = squ1.calcLine(squ1direction)
-                            switch = None
-                            if squ1direction[0] == 1:
-                                if squ2.lineToLeft(squ1line):
-                                    switch = "HORIZONTAL"
-                            else:
-                                if squ2.lineToRight(squ1line):
-                                    switch = "HORIZONTAL"
+                            switch = Square.findSwitch(squ2, squ1direction, squ1line)
+                                    
+                            if switch == None:
+                                squ1direction2 = (squ1direction[0], -squ1direction[1])
+                                squ1line2 = squ1.calcLine(squ1direction2)
+                                switch = Square.findSwitch(squ2, squ1direction, squ1line2)
                             
-                            if squ1direction[1] == 1:
-                                if squ2.lineToTop(squ1line):
-                                    switch = "VERTICAL"
+                            if switch == None:
+                                squ1direction3 = (-squ1direction[0], squ1direction[1])
+                                squ1line3 = squ1.calcLine(squ1direction3)
+                                switch = Square.findSwitch(squ2, squ1direction, squ1line3)
+                        if squ1direction != None:
+                            if switch == "HORIZONTAL":
+                                if squ1direction[0] == 1:
+                                    squ1.posx = squ2.posx - squ1.lenx
+                                else:
+                                    squ1.posx = squ2.posx + squ2.lenx
                             else:
-                                if squ2.lineToBottom(squ1line):
-                                    switch = "VERTICAL"
-
-                            
+                                if squ1direction[1] == 1:
+                                    squ1.posy = squ2.posy - squ1.leny
+                                else:
+                                    squ1.posy = squ2.posy + squ2.leny
+                                
                         squ1.switchDirection(switch)
                         
                         
