@@ -160,7 +160,7 @@ def binarySearch(colNum, passedList, searchItem):
 #     print ( test1[ i ] )
 
 # print(binarySearch(0, test1, "JOHN"))
-# print(binarySearch(0, test1, "NAME"))
+# binarySearch(0, test1, "NAME")
 # print( "" )
 
 #5.	Indirect Array addressing - work with original data input from the file - show that the data can be accessed in order of name, course, mark
@@ -208,7 +208,7 @@ def readafile1(filename):
 
 def readafile2(filename):
     file = open(filename, "r")
-    filelist = file.read().split('\n')
+    filelist = file.read().splitlines()
     file.close()
     return filelist
 
@@ -229,20 +229,31 @@ def writeafile(filename, lines):
         
 
 #test code----------------------------
-readlist = readafile1("readwritetest.txt")
-print(readlist)
+# readlist = readafile1("readwritetest.txt")
+# print(readlist)
 
-writeafile("readwritetest.txt", readlist)
+# writeafile("readwritetest.txt", readlist)
 
-readlist = readafile2("readwritetest.txt")
-print(readlist)
+# readlist = readafile2("readwritetest.txt")
+# print(readlist)
 
-readlist = readafile3("readwritetest.txt")
-print(readlist)
+# readlist = readafile3("readwritetest.txt")
+# print(readlist)
 
 #7.	Using pickle as you will need this in your major database program
+import pickle
 
+def picklesomething(something, picklename):
+    pickle.dump(something, open(picklename, "wb"))
 
+def getapickle(picklename):
+    return pickle.load(open(picklename, "rb"))
+    
+#test code---------------------------
+# randomList = [0, 0, 0, 0]
+# print(randomList)
+# picklesomething(randomList, "mypickle.pickle")
+# print(getapickle("mypickle.pickle"))
 
 #8.	Building and walking a dictionary
 # Read the dictionary data file, use the words in the file as the keys to the main dictionary
