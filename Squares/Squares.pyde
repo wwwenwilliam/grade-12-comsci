@@ -2,6 +2,7 @@
 allSquares = []
 sizeLimit = 400
 screenLimit = 800
+count = 0
 
 def drawASquare(aSquare):
     #takes a list in form:
@@ -25,7 +26,6 @@ def assignColor(aSquare, allSquares):
                 touchedGroups.append(i)
                 break
     
-    print(touchedGroups)
     if len(touchedGroups) > 0:
         biggestGroup = touchedGroups[0]
         for i in touchedGroups:
@@ -61,7 +61,7 @@ def setup():
     
     
 def draw():
-    global allSquares, sizeLimit, screenLimit
+    global allSquares, sizeLimit, screenLimit, count
     background(0)
     
     thisSquare = generateRandomSquare(sizeLimit, screenLimit)
@@ -71,7 +71,12 @@ def draw():
         for j in i:
             drawASquare(j)
     
+    count += 1
+    if count == 10:
+        print(allSquares)
+        noLoop()
     delay(1000)
+
     
     
     
