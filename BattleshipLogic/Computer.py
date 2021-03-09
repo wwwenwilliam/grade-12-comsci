@@ -15,7 +15,7 @@ class Computer:
     def makeRandomMove(self):
         randomX = int(random(0, 10))
         randomY = int(random(0, 10))
-        if self.playerBoard.fire(randomX, randomY):
+        if self.playerBoard.fire(randomX, randomY, None):
             return
         else:
             self.makeRandomMove()

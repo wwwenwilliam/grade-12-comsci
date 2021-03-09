@@ -2,7 +2,6 @@ from Ship import Ship
 
 class Board:
     
-    
     def __init__(self, x, y):
         self.x = x #position of corner of board
         self.y = y
@@ -84,13 +83,13 @@ class Board:
                 
     #for game -------------------------------------
     
-    def clickToFire(self):
+    def clickToFire(self, message):
         #calls fire based on mouse position
         clickX = (mouseX-self.x) // 50
         clickY = (mouseY-self.y) // 50
-        return self.fire(clickX, clickY)
+        return self.fire(clickX, clickY, message)
     
-    def fire(self, clickX, clickY):
+    def fire(self, clickX, clickY, message):
         #most game logic here
         #returns True if valid move, False otherwise
         if not self.isSquareOnBoard(clickX, clickY):
@@ -100,7 +99,7 @@ class Board:
         else:
             self.grid[clickX][clickY] = True
             for ship in self.ships:
-                ship.hit(clickX, clickY)
+                ship.hit(clickX, clickY, message)
             
         return True
     

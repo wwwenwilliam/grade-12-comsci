@@ -107,15 +107,15 @@ class Ship:
         
     #methods for game ------------------------------------------
     
-    def hit(self, clickX, clickY):
+    def hit(self, clickX, clickY, message):
         if self.isPointOnShip(clickX, clickY):
             if self.direction:
                 self.hits[clickX-self.x] = True
             else:
                 self.hits[clickY-self.y] = True
             
-            if self.isSunk():
-                print("{} sunk".format(Ship.shipType[self.ln]))
+            if self.isSunk() and message != None:
+                message.setMessage("{} sunk".format(Ship.shipType[self.ln]))
                 
     def isSunk(self):
         for hit in self.hits:
