@@ -111,10 +111,137 @@ def move(numDisks, current, goal, extra):
     if numDisks > 0:
         move(numDisks-1, current, extra, goal)
         goal.append(current.pop())
+        print(current, extra, goal)
         move(numDisks-1, extra, goal, current)
     return goal
+
+# Exercise # 7
+def expandL(rulekeys, rules, string):
+    if len(string) == 1:
+        if string in rulekeys:
+            return rules[rulekeys.index(string)]
+        else:
+            return string
+    else:
+        return expandL(rulekeys, rules, string[:-1]) + expandL(rulekeys, rules, string[-1])
+       
+def expand(rulekeys, rules, string, depth):
+    for i in range(depth):
+        string = expandL(rulekeys, rules, string)
+        print(string)
+    return string        
     
+def drawLines(string, turtlein, distance, angle):
+    for char in string:
+        if char == "F":
+            turtlein.forward(distance)
+        elif char == "+":
+            turtlein.left(angle)
+        elif char == "-":
+            turtlein.right(angle)
+            
+def draw7():
+    wn = turtle.Screen()
+    jim = turtle.Turtle()
+    rulekeys = ['A', 'B']
+    rules = ["+BF-AFA-FB+", "-AF+BFB+FA-"]
     
+    string = expand(rulekeys, rules, "A", 5)
+    print(string)
+    drawLines(string, jim, 5, 90)
+    wn.exitonclick()
+
+# Exercise # 8
+
+def draw8():
+    wn = turtle.Screen()
+    jim = turtle.Turtle()
+    rulekeys = ['F']
+    rules = ["F+F--F+F"]
+    
+    string = expand(rulekeys, rules, "F", 5)
+    print(string)
+    drawLines(string, jim, 5, 60)
+    wn.exitonclick()
+    
+# Exercise # 9/10
+
+def solveJugs(jugOne, capOne, jugTwo, capTwo):
+    pass
+   
+# Exercise # 11
+
+
+# Exercise # 12
+
+def moveanddraw(numDisks, current, goal, extra, turA, turB, turC):
+    if numDisks > 0:
+        move(numDisks-1, current, extra, goal)
+        goal.append(current.pop())
+        draw(current, extra, goal, turA, turB, turC)
+        move(numDisks-1, extra, goal, current)
+    return goal
+
+def draw(current, extra, goal, turA, turB, turC):
+    allLists = [current, extra, goal]
+    for i in  range(len(allLists)):
+        for disk in allLists[i]:
+            if disk == 1:
+                turA.goto(i*100, 100)
+            elif disk == 2:
+                turB.goto(i*100, 0)
+            elif disk == 3:
+                turC.goto(i*100, -100)
+
+def draw12():
+    wn = turtle.Screen()
+    turA = turtle.Turtle()
+    turA.speed(1)
+    turA.up()
+    turA.goto(-100, 100)
+    turA.shape("square")
+    turA.shapesize(1, 3)
+    
+    turB = turtle.Turtle()
+    turB.up()
+    turB.speed(1)
+    turB.goto(-100, 0)
+    turB.shapesize(1, 4)
+    turB.shape("square")
+    
+    turC = turtle.Turtle()
+    turC.up()
+    turC.speed(1)
+    turC.goto(-100, -100)
+    turC.shapesize(1, 5)
+    turC.shape("square")
+    
+    A = [3, 2, 1]
+    B = []
+    C = []
+    moveanddraw(3, A, C, B, turA, turB, turC)
+    
+    wn.exitonclick()
+        
+    
+
+
+# Exercise # 13
+def calcRow(row, col):
+    if row == 0:
+        return 0
+    if col == 0 or col == row:
+        return 1
+    else:
+        return calcRow(row-1, col-1) + calcRow(row-1, col)
+    
+def pascal(rows):
+    for i in range(rows):
+        for j in range(i+1):
+            print(calcRow(i, j), end=' ')
+        print("")
+    
+
 # Test code ---------------------
 
 # Call code for exercise # 1
@@ -142,8 +269,25 @@ def move(numDisks, current, goal, extra):
 # print(fib(20))
 
 # Call code for exercise # 6
-A = [3, 2, 1]
-B = []
-C = []
-print(move(3, A, C, B))
 
+# A = [3, 2, 1]
+# B = []
+# C = []
+# print(move(3, A, C, B))
+
+# Call code for exercise # 7
+
+# draw7()
+
+# Call code for exercise # 8
+
+# draw8()
+
+
+# Call code for exercise # 12
+
+draw12()
+
+# Call code for exercise # 13
+
+# pascal(9)

@@ -167,7 +167,7 @@ import turtle
 # rulekeys = ["F"]
 # rules = ["F[-F]F[+F]F"]
 
-# string = expandL(rulekeys, rules, "F", 3)
+# string = expandL(rulekeys, rules, "F", 4)
 # drawLines(string, jim, 10, 25)
 # wn.exitonclick()
 

@@ -55,8 +55,6 @@ for i in range( limit ):
 #     print ( test1[ i ] )
 
 
-
-
 #2.	Selection sort - Follow example above expand the same way as shown above so that you can pick which column of the data is to be sorted
 def findMin(colNum, passedList):
     #takes list and finds the minimum
@@ -150,7 +148,6 @@ def binarySearch(colNum, passedList, searchItem):
     if passedList[middle][colNum] == searchItem:
         return middle
     else:
-        print("Item not found")
         return None
 
 # test code --------------------------------------------------
@@ -289,13 +286,12 @@ def createSubDicts(aDict):
 def findLetters(aDict):
     newDict = {}
     for key1 in aDict:
-        for key2 in aDict[key1]:
-            charList = list(key2)
-            for char in charList:
-                if char in newDict:
-                    newDict[char] += 1
-                else:
-                    newDict[char] = 1
+        charList = list(key1)
+        for char in charList:
+            if char in newDict:
+                newDict[char] += 1
+            else:
+                newDict[char] = 1
     return newDict
             
 
