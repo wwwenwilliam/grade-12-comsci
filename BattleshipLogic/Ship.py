@@ -16,6 +16,7 @@ class Ship:
                 self.occupiedSquares.append([x+i, y])
             else:
                 self.occupiedSquares.append([x, y+i])
+                
         #stores info for moving the ship
         self.moving = False
         self.moveX = 0
@@ -51,8 +52,8 @@ class Ship:
     
     def isPointOnShip(self, x, y):
         #checks if a point is on the ship
-        for squ in occupiedSquares:
-            if squ[0] == x or squ[0] == y:
+        for squ in self.occupiedSquares:
+            if squ[0] == x and squ[1] == y:
                 return True
         return False
     
@@ -107,14 +108,17 @@ class Ship:
     #methods for game ------------------------------------------
     
     def hit(self, clickX, clickY):
-        if self.isPointOnShip(self, clickX, clickY):
+        if self.isPointOnShip(clickX, clickY):
             if self.direction:
-                hits[clickX-self.x] = True
+                self.hits[clickX-self.x] = True
             else:
-                hits[clickY-self.y] = True
+                self.hits[clickY-self.y] = True
+            
+            if self.isSunk():
+                print("{} sunk".format(Ship.shipType[self.ln]))
                 
     def isSunk(self):
-        for hit in hits:
+        for hit in self.hits:
             if not hit:
                 return False
         return True

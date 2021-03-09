@@ -16,7 +16,6 @@ class Board:
     def shipCollision(self, passedShip):
         #checks one ship against the rest
         for ship in self.ships:
-            print(ship.moving)
             if not ship.moving:
                 for pnt in ship.occupiedSquares:
                     if pnt in passedShip.occupiedSquares:
@@ -39,7 +38,8 @@ class Board:
             for j in range(10):
                 fill(100, 100, 255)
                 square(i*50+self.x, j*50+self.y, 50)
-        
+                
+    def drawHits(self):
         #draws hit markers
         for i in range(10):
             for j in range(10):
@@ -52,6 +52,11 @@ class Board:
                             fill(255, 255, 50)
                         
                     circle(i*50+self.x+25, j*50+self.y+25, 25)
+    
+    def isSquareOnBoard(self, x, y):
+        if x >= 0 and x <= 9 and y >= 0 and y <= 9:
+            return True
+        return False
                     
     def drawShips(self):
         #draws ships on board
@@ -79,8 +84,32 @@ class Board:
                 
     #for game -------------------------------------
     
-    def fire(self, x, y):
+    def clickToFire(self):
+        #calls fire based on mouse position
+        clickX = (mouseX-self.x) // 50
+        clickY = (mouseY-self.y) // 50
+        return self.fire(clickX, clickY)
+    
+    def fire(self, clickX, clickY):
         #most game logic here
+        #returns True if valid move, False otherwise
+        if not self.isSquareOnBoard(clickX, clickY):
+            return False
+        if self.grid[clickX][clickY] == True:
+            return False
+        else:
+            self.grid[clickX][clickY] = True
+            for ship in self.ships:
+                ship.hit(clickX, clickY)
+            
+        return True
+    
+    def checkLoss(self):
+        #checks for a loss
+        for ship in self.ships:
+            if not ship.isSunk():
+                return False
+        return True
         
         
 
