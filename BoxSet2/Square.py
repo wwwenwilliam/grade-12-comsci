@@ -1,5 +1,5 @@
 class Square():
-    dragFactor = 9999999
+    dragFactor = 999999999
     mouseFactor = 2
     
     def __init__(self, x, y, lenx, leny, velx, vely):
@@ -18,8 +18,8 @@ class Square():
     def moveSquare(self):
         self.posx += self.velx
         self.posy += self.vely
-        self.velx -= self.velx / Square.dragFactor
-        self.vely -= self.vely / Square.dragFactor
+        self.velx -= self.velx // Square.dragFactor
+        self.vely -= self.vely // Square.dragFactor
         # self.posx = int(self.posx)
         # self.posy = int(self.posy)
         

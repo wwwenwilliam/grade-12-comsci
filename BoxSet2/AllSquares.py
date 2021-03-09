@@ -68,7 +68,7 @@ class AllSquares:
                                 if squ1direction[1] == 1:
                                     squ1.posy = squ2.posy - squ1.leny
                                 else:
-                                    squ1.posy = squ2.posy + squ2.leny
+                                    squ1.posy = squ2.posy + squ2.lenx
                                 
                         squ1.switchDirection(switch)
                         
