@@ -48,7 +48,7 @@ class Board:
                             fill(255, 0, 0)
                             break
                         else:
-                            fill(255, 255, 50)
+                            fill(255)
                         
                     circle(i*50+self.x+25, j*50+self.y+25, 25)
     
