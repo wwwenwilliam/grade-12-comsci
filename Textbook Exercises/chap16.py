@@ -270,10 +270,10 @@ def pascal(rows):
 
 # Call code for exercise # 6
 
-# A = [3, 2, 1]
+# A = [6, 5, 4, 3, 2, 1]
 # B = []
 # C = []
-# print(move(3, A, C, B))
+# print(move(6, A, C, B))
 
 # Call code for exercise # 7
 
@@ -286,7 +286,7 @@ def pascal(rows):
 
 # Call code for exercise # 12
 
-draw12()
+# draw12()
 
 # Call code for exercise # 13
 
