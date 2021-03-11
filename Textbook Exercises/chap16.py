@@ -60,31 +60,44 @@ def main():
     
 # Exercise # 4
 
-def generatePoint(range1, range2):
+def generatePoint(range1, range2, roughness):
     averagex = (range1[0] + range2[0])/2
     averagey = (range1[1] + range2[1])/2
-    addx = random.randint(0, int(max(range1[0], range2[0])) - int(min(range1[0], range2[0])))
-    addy = random.randint(0, int(max(range1[1], range2[1])) - int(min(range1[1], range2[1])))
-    return (averagex+min(addx, addy), averagey+min(addx, addy))
+    
+    distx = int(abs(range1[0]-range2[0])/2)
+    disty = int(abs(range1[1]-range2[1])/2)
+    if distx > 50:
+        distx = 50
+    if disty > 50:
+        disty = 50
+    
+    addx = random.randint(-distx, distx)*roughness
+    addy = random.randint(-disty, disty)*roughness
+    
+    if addy < 10:
+        addy = random.randint(-20, 20)
+        
+    return (averagex+addx, averagey+addy)
 
 def generateSmallTri(point1, point2):
     point = generatePoint(point1, point2)
     return [point1, point2, point]
 
-def generateMountain(existingTriangles, depth=0):
-    if depth > 2:
+def generateMountain(existingTriangles, roughness, depth=0):
+    if depth > 3:
         return existingTriangles
     else:
         for i in range(len(existingTriangles)-1, -1, -1):
-            newpoint1 = generatePoint(existingTriangles[i][0], existingTriangles[i][1])
-            newpoint2 = generatePoint(existingTriangles[i][1], existingTriangles[i][2])
-            newpoint3 = generatePoint(existingTriangles[i][0], existingTriangles[i][2])
+            newpoint1 = generatePoint(existingTriangles[i][0], existingTriangles[i][1], roughness)
+            newpoint2 = generatePoint(existingTriangles[i][1], existingTriangles[i][2], roughness)
+            newpoint3 = generatePoint(existingTriangles[i][0], existingTriangles[i][2], roughness)
             existingTriangles.append([newpoint1, newpoint2, existingTriangles[i][1]])
             existingTriangles.append([newpoint2, newpoint3, existingTriangles[i][2]])
             existingTriangles.append([newpoint1, newpoint3, existingTriangles[i][0]])
+            existingTriangles.append([newpoint1, newpoint2, newpoint3])
             existingTriangles.pop(i)
         
-        existingTriangles = generateMountain(existingTriangles, depth+1)
+        existingTriangles = generateMountain(existingTriangles, roughness, depth+1)
     return existingTriangles
 
 def drawMountain(mountain, t):
@@ -166,60 +179,120 @@ def draw8():
     
 # Exercise # 9/10
 
-def solveJugs(jugOne, capOne, jugTwo, capTwo):
-    pass
+def solveJugs(current1, capacity1, current2, capacity2, goal):
+  #assume 1 is <= 2
+
+  #if either are goal, break
+  if current2 == goal:
+    return
+  if current1 == goal:
+    current2 == 0
+    print(current1, current2)
+    current2 = current1
+    current1 = 0
+    print(current1, current2)
+    return
+
+  #if first jug empty, fill
+  if current1 == 0:
+    current1 = capacity1
+    print(current1, current2)
+
+  #pour into second jug
+  spacein2 = capacity2 - current2
+  if current1 > spacein2:
+    current2 = capacity2
+    current1 = current1 - spacein2
+  else:
+    current2 += current1
+    current1 = 0
+  print(current1, current2)
+  
+  #if second jug full, empty it
+  if current2 == capacity2:
+      current2 = 0
+      print(current1, current2)
+  
+  solveJugs(current1, capacity1, current2, capacity2, goal)
    
 # Exercise # 11
 
+def mission(state, prevStates=[]):
+    #state - [misonside1, canonside1, misonside2, canonside2, boatside]
+    
+    for field in state:
+        if field < 0:
+            return
+        
+    if state[0] < state[1] or state[2] < state[3]:
+        return
+    
+    prevStates.append(state)
+    
+    if state[0] == 0 and state[1] == 0:
+        print(prevStates)
+        return prevStates
+    
+    if state[4]:
+        #boat on side 1
+        for i in range(3):
+            for j in range(3):
+                if i+j != 2:
+                    continue
+                else:
+                    mission([state[0]-i, state[1]-j, state[2]+i, state[3]+j, not(state[4])], prevStates)
+        
+    else:
+        #boat on side 2
+        for i in range(1):
+            for j in range(1):
+                if i+j > 2:
+                    continue
+                else:
+                    mission([state[0]-i, state[1]-j, state[2]+i, state[3]+j, not(state[4])], prevStates)
+
 
 # Exercise # 12
+import time
 
-def moveanddraw(numDisks, current, goal, extra, turA, turB, turC):
+def moveanddraw(numDisks, current, goal, extra, turtles):
     if numDisks > 0:
-        move(numDisks-1, current, extra, goal)
+        moveanddraw(numDisks-1, current, extra, goal, turtles)
+        moveTurtle(turtles, current, extra, goal)
         goal.append(current.pop())
-        draw(current, extra, goal, turA, turB, turC)
-        move(numDisks-1, extra, goal, current)
+        time.sleep(0.5)
+        moveanddraw(numDisks-1, extra, goal, current, turtles)
     return goal
 
-def draw(current, extra, goal, turA, turB, turC):
+def moveTurtle(turtles, current, extra, goal):
+    turtles[current[-1]-1].goto(goal[0]*200-200, len(goal)*50-150)
+    
+def draw(current, extra, goal, turtles):
     allLists = [current, extra, goal]
-    for i in  range(len(allLists)):
-        for disk in allLists[i]:
-            if disk == 1:
-                turA.goto(i*100, 100)
-            elif disk == 2:
-                turB.goto(i*100, 0)
-            elif disk == 3:
-                turC.goto(i*100, -100)
+    for i in range(len(allLists)):
+        for j in range(len(allLists[i])):
+            turtles[allLists[i][j]-1].goto(allLists[i][0]*200-200, j*50-150)
 
 def draw12():
     wn = turtle.Screen()
-    turA = turtle.Turtle()
-    turA.speed(1)
-    turA.up()
-    turA.goto(-100, 100)
-    turA.shape("square")
-    turA.shapesize(1, 3)
-    
+    turA = turtle.Turtle()   
     turB = turtle.Turtle()
-    turB.up()
-    turB.speed(1)
-    turB.goto(-100, 0)
-    turB.shapesize(1, 4)
-    turB.shape("square")
-    
     turC = turtle.Turtle()
-    turC.up()
-    turC.speed(1)
-    turC.goto(-100, -100)
-    turC.shapesize(1, 5)
-    turC.shape("square")
+    turD = turtle.Turtle()
+    turE = turtle.Turtle()
+    turF = turtle.Turtle()
     
-    A = [3, 2, 1]
-    B = []
-    C = []
-    moveanddraw(3, A, C, B, turA, turB, turC)
+    turtles = [turA, turB, turC, turD, turE, turF]
+    for i in range(6):
+        turtles[i].up()
+        turtles[i].shapesize(1, i+3)
+        turtles[i].shape("square")
+    
+    A = [0, 6, 5, 4, 3, 2, 1]
+    B = [1]
+    C = [2]
+    draw(A, C, B, turtles)
+    moveanddraw(6, A, C, B, turtles)
     
     wn.exitonclick()
         
@@ -259,8 +332,9 @@ def pascal(rows):
 # Call code for exercise # 4
 
 # t = turtle.Turtle()
+# t.speed(0)
 # myWin = turtle.Screen()
-# mountain = generateMountain([[(-100, -100), (0, 200), (100, -200)]])
+# mountain = generateMountain([[(-300, -200), (0, 200), (300, -200)]], 0.8)
 # drawMountain(mountain, t)
 # myWin.exitonclick()
 
@@ -283,6 +357,17 @@ def pascal(rows):
 
 # draw8()
 
+#Call code for exercise # 9
+
+# solveJugs(0, 3, 0, 4, 2)
+
+#Call code for exercise # 10
+
+# solveJugs(0, 3, 0, 5, 4)
+
+#Call code for exercise # 11
+
+# mission([4, 4, 0, 0, True])
 
 # Call code for exercise # 12
 

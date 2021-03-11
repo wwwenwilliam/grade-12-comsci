@@ -101,6 +101,7 @@ def mouseReleased():
             computer = Computer(0, playerBoard)
             bottomRightButton.setMessage("Ready")
             turnMessager.setMessage("Place your ships")
+            sinkMessager.setMessage("")
             turn = True
             
             playerBoard.createRandomBoard()
