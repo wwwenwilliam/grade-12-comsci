@@ -1,3 +1,17 @@
+def bfs():
+    if len(queue) == 0:
+        return
+
+    current = queue.pop(0)
+    for house in adjHouses[current]:
+        if not visited[house-1]:
+            visited[house-1] = True
+            distMap[house] = [distMap[current][0]+1, current]
+            queue.append(house)
+    bfs()
+
+
+
 
 inData = input().split()
 
@@ -24,13 +38,8 @@ visited = [False for i in range(numHouses)]
 visited[houseA-1] = True
 distMap[houseA] = [0, 0]
 
-while len(queue) > 0:
-    current = queue.pop(0)
-    for house in adjHouses[current]:
-        if not visited[house-1]:
-            visited[house-1] = True
-            distMap[house] = [distMap[current][0]+1, current]
-            queue.append(house)
+bfs()
+
 
 if visited[houseB-1]:
     path = [houseB]
@@ -41,5 +50,3 @@ if visited[houseB-1]:
     print(path)
 else:
     print("NO ALBERT")
-    
-    
