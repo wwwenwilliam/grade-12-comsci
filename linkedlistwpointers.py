@@ -17,9 +17,9 @@ def appendElement(linked, head, element):
     return linked
 
 def addHeadElement(linked, head, element):
-    newElement = [element, head[1]]
+    newElement = [element, linked.index(head)]
     linked.append(newElement)
-    head = [element, len(linked)-1]
+    head = newElement
     return(head, linked)
 
 def addElement(linked, head, before, element):
@@ -32,8 +32,17 @@ def addElement(linked, head, before, element):
     
     return linked
 
+def printLinked(linked, head):
+    nxt = head
+    while nxt[1] != None:
+        print(nxt[0], end=" ")
+        nxt = linked[nxt[1]]
+    print(nxt[0], end=" ")
+    print("")
+    
 
-head = ["grape", 0]
+
+head = ["grape", None]
 linked = [["grape", None]]
 
 (head, linked) = addHeadElement(linked, head, "apple")
@@ -41,3 +50,4 @@ linked = appendElement(linked, head, "banana")
 linked = addElement(linked, head, "grape", "fig")
 
 print(linked)
+printLinked(linked, head)
