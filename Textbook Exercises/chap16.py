@@ -60,44 +60,26 @@ def main():
     
 # Exercise # 4
 
-def generatePoint(range1, range2, roughness):
-    averagex = (range1[0] + range2[0])/2
-    averagey = (range1[1] + range2[1])/2
+def findMid(pointA, pointB):
+    midx = (pointA[0] + pointB[0])/2
+    midy = (pointA[1] + pointB[1])/2
     
-    distx = int(abs(range1[0]-range2[0])/2)
-    disty = int(abs(range1[1]-range2[1])/2)
-    if distx > 50:
-        distx = 50
-    if disty > 50:
-        disty = 50
-    
-    addx = random.randint(-distx, distx)*roughness
-    addy = random.randint(-disty, disty)*roughness
-    
-    if addy < 10:
-        addy = random.randint(-20, 20)
-        
-    return (averagex+addx, averagey+addy)
+    return (midx, midy)
 
-def generateSmallTri(point1, point2):
-    point = generatePoint(point1, point2)
-    return [point1, point2, point]
-
-def generateMountain(existingTriangles, roughness, depth=0):
+def generateMountain(existingTriangles, depth=0):
     if depth > 3:
         return existingTriangles
     else:
-        for i in range(len(existingTriangles)-1, -1, -1):
-            newpoint1 = generatePoint(existingTriangles[i][0], existingTriangles[i][1], roughness)
-            newpoint2 = generatePoint(existingTriangles[i][1], existingTriangles[i][2], roughness)
-            newpoint3 = generatePoint(existingTriangles[i][0], existingTriangles[i][2], roughness)
-            existingTriangles.append([newpoint1, newpoint2, existingTriangles[i][1]])
-            existingTriangles.append([newpoint2, newpoint3, existingTriangles[i][2]])
-            existingTriangles.append([newpoint1, newpoint3, existingTriangles[i][0]])
-            existingTriangles.append([newpoint1, newpoint2, newpoint3])
-            existingTriangles.pop(i)
-        
-        existingTriangles = generateMountain(existingTriangles, roughness, depth+1)
+        length = len(existingTriangles)
+        for i in range(length-1, length-2**depth-1, -1):
+            pointOne = findMid(existingTriangles[i][0], existingTriangles[i][1])
+            pointTwo = findMid(existingTriangles[i][1], existingTriangles[i][2])
+            pointThree = findMid(existingTriangles[i][0], existingTriangles[i][2])
+            
+            existingTriangles.append([existingTriangles[i][0], pointOne, pointThree])
+            existingTriangles.append([pointThree, pointTwo, existingTriangles[i][2]])
+
+        existingTriangles = generateMountain(existingTriangles, depth+1)
     return existingTriangles
 
 def drawMountain(mountain, t):
@@ -332,9 +314,8 @@ def pascal(rows):
 # Call code for exercise # 4
 
 # t = turtle.Turtle()
-# t.speed(0)
 # myWin = turtle.Screen()
-# mountain = generateMountain([[(-300, -200), (0, 200), (300, -200)]], 0.8)
+# mountain = generateMountain([[(-200, -200), (0, 200), (200, -200)]])
 # drawMountain(mountain, t)
 # myWin.exitonclick()
 
