@@ -1,7 +1,6 @@
 from Square import Square
 
 class AllSquares:
-    tolerance = 20
     
     def __init__(self, squares):
         self.squares = squares
@@ -46,6 +45,7 @@ class AllSquares:
                             switch = "HORIZONTAL"
                         else:
                             squ1direction = squ1.findDirection()
+                            print(squ1direction)
                             squ1line = squ1.calcLine(squ1direction)
                             switch = Square.findSwitch(squ2, squ1direction, squ1line)
                                     
@@ -58,6 +58,8 @@ class AllSquares:
                                 squ1direction3 = (-squ1direction[0], squ1direction[1])
                                 squ1line3 = squ1.calcLine(squ1direction3)
                                 switch = Square.findSwitch(squ2, squ1direction, squ1line3)
+                        
+                        
                         if squ1direction != None:
                             if switch == "HORIZONTAL":
                                 if squ1direction[0] == 1:
@@ -69,8 +71,10 @@ class AllSquares:
                                     squ1.posy = squ2.posy - squ1.leny
                                 else:
                                     squ1.posy = squ2.posy + squ2.lenx
-                                
+                        
+                        print(switch)
                         squ1.switchDirection(switch)
+                        squ2.switchDirection(switch)
                         
                         
         
