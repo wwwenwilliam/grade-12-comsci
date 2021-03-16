@@ -101,6 +101,11 @@ def fib(index):
     else:
         return fib(index-1) + fib(index-2)
     
+def printFib(index):
+    for i in range(index+1):
+        print(fib(i), end=" ")
+    print("")
+    
 # Exercise # 6
 def move(numDisks, current, goal, extra):
     if numDisks > 0:
@@ -321,7 +326,7 @@ def pascal(rows):
 
 # Call code for exercise # 5
 
-# print(fib(20))
+# printFib(20)
 
 # Call code for exercise # 6
 
@@ -429,45 +434,62 @@ def mergeSort(passedList):
 # test code -------------------------
 
 randomList = [random.randint(0, 50) for i in range(20)]
-print(randomList)
 
-sortList = mergeSort(randomList)
+# sortList = mergeSort(randomList)
 
 # sortList = quickSort(randomList)
 
-print(sortList)
-print(sorted(randomList) == sortList)
+# print(sortList)
+# print(sorted(randomList) == sortList)
 
-# DFS ------------------------------------------------------------------------------
+# BFS/DFS ------------------------------------------------------------------------------
 
-# def dfs(current):
-#     global visited, adjHouses
-#     visited[current-1] = True
-#     for house in adjHouses[current]:
-#         if not visited[house-1]:
-#             dfs(house)
+def loadFileInfo( fileName ):
+    file = open(  fileName )
+    fileInfo = []
+    text = file.readlines()
 
-# inData = input().split()
 
-# numHouses = int(inData[0])
-# numRoads = int(inData[1])
-# houseA = int(inData[2])
-# houseB = int(inData[3])
-# adjHouses = {}
+    for line in text:
+        line = line.strip()
+        line = line.split( " " )
+        fileInfo.append( line )
 
-# for i in range(numHouses):
-#     adjHouses[i+1] = []
+    numItems = len( fileInfo )
+    file.close()
+
+
+    return fileInfo, numItems
+
+dataFile, numEntries = loadFileInfo( "bfsdfs.txt" )
+
+numHouses = int(dataFile[0][0])
+numRoads = int(dataFile[0][1])
+houseA = int(dataFile[0][2])
+houseB = int(dataFile[0][3])
+adjHouses = {}
+
+for i in range(numHouses):
+    adjHouses[i+1] = []
     
-# for i in range(numRoads):
-#     road = input().split()
-#     roadOne = int(road[0])
-#     roadTwo = int(road[1])
-#     adjHouses[roadOne].append(roadTwo)
-#     adjHouses[roadTwo].append(roadOne)
+for i in range(1, numRoads+1):
+    roadOne = int(dataFile[i][0])
+    roadTwo = int(dataFile[i][1])
+    adjHouses[roadOne].append(roadTwo)
+    adjHouses[roadTwo].append(roadOne)
+
+    
+#DFS ------------------------------------------------------------------------------
+
+def dfs(current, visited, adjList):
+    visited[current-1] = True
+    for house in adjHouses[current]:
+        if not visited[house-1]:
+            dfs(house, visited, adjList)
     
 # visited = [False for i in range(numHouses)]
 
-# dfs(houseA)
+# dfs(houseA, visited, adjHouses)
 
 # if visited[houseB-1]:
 #     print("GO ALBERT")
@@ -476,47 +498,30 @@ print(sorted(randomList) == sortList)
 
 #BFS -------------------------------------------------------------------------------------
 
-# def bfs():
-#     if len(queue) == 0:
-#         return
+def bfs(queue, adjList, visited, distMap):
+    if len(queue) == 0:
+        return
 
-#     current = queue.pop(0)
-#     for house in adjHouses[current]:
-#         if not visited[house-1]:
-#             visited[house-1] = True
-#             distMap[house] = [distMap[current][0]+1, current]
-#             queue.append(house)
-#     bfs()
+    current = queue.pop(0)
+    for item in adjList[current]:
+        if not visited[item-1]:
+            visited[item-1] = True
+            distMap[item] = [distMap[current][0]+1, current]
+            queue.append(item)
+            
+    bfs(queue, adjList, visited, distMap)
 
 
-
-
-# inData = input().split()
-
-# numHouses = int(inData[0])
-# numRoads = int(inData[1])
-# houseA = int(inData[2])
-# houseB = int(inData[3])
-# adjHouses = {}
 # distMap = {}
-
 # for i in range(numHouses):
-#     adjHouses[i+1] = []
 #     distMap[i+1] = []
-    
-# for i in range(numRoads):
-#     road = input().split()
-#     roadOne = int(road[0])
-#     roadTwo = int(road[1])
-#     adjHouses[roadOne].append(roadTwo)
-#     adjHouses[roadTwo].append(roadOne)
     
 # queue = [houseA]
 # visited = [False for i in range(numHouses)]
 # visited[houseA-1] = True
 # distMap[houseA] = [0, 0]
 
-# bfs()
+# bfs(queue, adjHouses, visited, distMap)
 
 
 # if visited[houseB-1]:
