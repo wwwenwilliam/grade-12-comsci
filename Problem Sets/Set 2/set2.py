@@ -1,9 +1,9 @@
 import turtle
 import random
 
-#Chap. 16 -------------------------------------------------------------------
+##Chap. 16 -------------------------------------------------------------------
 
-# Exercise # 1
+##Exercise ##1
 
 def computeFactorial(number):
     if number == 0:
@@ -14,7 +14,7 @@ def computeFactorial(number):
         number *= computeFactorial(number-1)
     return number
 
-# Exercise # 2
+##Exercise ##2
 
 def reverseList(lst):
     if len(lst) > 1:
@@ -23,7 +23,7 @@ def reverseList(lst):
         return lst
     return lst
 
-# Exercise # 3
+##Exercise ##3
 
 def tree(branchLen,t):
     if branchLen > 5:
@@ -58,7 +58,7 @@ def main():
     tree(75,t)
     myWin.exitonclick()
     
-# Exercise # 4
+##Exercise ##4
 
 def findMid(pointA, pointB):
     midx = (pointA[0] + pointB[0])/2
@@ -90,7 +90,7 @@ def drawMountain(mountain, t):
         for point in triangle:
             t.goto(point)
             
-# Exercise # 5
+##Exercise ##5
 def fib(index):
     if index < 0:
         return
@@ -106,7 +106,7 @@ def printFib(index):
         print(fib(i), end=" ")
     print("")
     
-# Exercise # 6
+##Exercise ##6
 def move(numDisks, current, goal, extra):
     if numDisks > 0:
         move(numDisks-1, current, extra, goal)
@@ -115,7 +115,7 @@ def move(numDisks, current, goal, extra):
         move(numDisks-1, extra, goal, current)
     return goal
 
-# Exercise # 7
+##Exercise ##7
 def expandL(rulekeys, rules, string):
     if len(string) == 1:
         if string in rulekeys:
@@ -151,7 +151,7 @@ def draw7():
     drawLines(string, jim, 5, 90)
     wn.exitonclick()
 
-# Exercise # 8
+##Exercise ##8
 
 def draw8():
     wn = turtle.Screen()
@@ -164,12 +164,12 @@ def draw8():
     drawLines(string, jim, 5, 60)
     wn.exitonclick()
     
-# Exercise # 9/10
+##Exercise ##9/10
 
 def solveJugs(current1, capacity1, current2, capacity2, goal):
-  #assume 1 is <= 2
+  ##assume 1 is <= 2
 
-  #if either are goal, break
+  ##if either are goal, break
   if current2 == goal:
     return
   if current1 == goal:
@@ -180,12 +180,12 @@ def solveJugs(current1, capacity1, current2, capacity2, goal):
     print(current1, current2)
     return
 
-  #if first jug empty, fill
+  ##if first jug empty, fill
   if current1 == 0:
     current1 = capacity1
     print(current1, current2)
 
-  #pour into second jug
+  ##pour into second jug
   spacein2 = capacity2 - current2
   if current1 > spacein2:
     current2 = capacity2
@@ -195,17 +195,17 @@ def solveJugs(current1, capacity1, current2, capacity2, goal):
     current1 = 0
   print(current1, current2)
   
-  #if second jug full, empty it
+  ##if second jug full, empty it
   if current2 == capacity2:
       current2 = 0
       print(current1, current2)
   
   solveJugs(current1, capacity1, current2, capacity2, goal)
    
-# Exercise # 11
+##Exercise ##11
 
 def mission(state, prevStates=[]):
-    #state - [misonside1, canonside1, misonside2, canonside2, boatside]
+    ##state - [misonside1, canonside1, misonside2, canonside2, boatside]
     
     for field in state:
         if field < 0:
@@ -221,7 +221,7 @@ def mission(state, prevStates=[]):
         return prevStates
     
     if state[4]:
-        #boat on side 1
+        ##boat on side 1
         for i in range(3):
             for j in range(3):
                 if i+j != 2:
@@ -230,7 +230,7 @@ def mission(state, prevStates=[]):
                     mission([state[0]-i, state[1]-j, state[2]+i, state[3]+j, not(state[4])], prevStates)
         
     else:
-        #boat on side 2
+        ##boat on side 2
         for i in range(1):
             for j in range(1):
                 if i+j > 2:
@@ -239,7 +239,7 @@ def mission(state, prevStates=[]):
                     mission([state[0]-i, state[1]-j, state[2]+i, state[3]+j, not(state[4])], prevStates)
 
 
-# Exercise # 12
+##Exercise ##12
 import time
 
 def moveanddraw(numDisks, current, goal, extra, turtles):
@@ -286,7 +286,7 @@ def draw12():
     
 
 
-# Exercise # 13
+##Exercise ##13
 def calcRow(row, col):
     if row == 0:
         return 0
@@ -302,71 +302,71 @@ def pascal(rows):
         print("")
     
 
-# Test code ---------------------
+##Test code ---------------------
 
-# Call code for exercise # 1
+##Call code for exercise ##1
 
-# print(computeFactorial(4))
+##print(computeFactorial(4))
 
-# Call code for exercise # 2
+##Call code for exercise ##2
 
-# print(reverseList([0, 1, 2, 3, 4, 5]))
+##print(reverseList([0, 1, 2, 3, 4, 5]))
 
-# Call code for exercise # 3
+##Call code for exercise ##3
 
-# main()
+##main()
 
-# Call code for exercise # 4
+##Call code for exercise ##4
 
-# t = turtle.Turtle()
-# myWin = turtle.Screen()
-# mountain = generateMountain([[(-200, -200), (0, 200), (200, -200)]])
-# drawMountain(mountain, t)
-# myWin.exitonclick()
+##t = turtle.Turtle()
+##myWin = turtle.Screen()
+##mountain = generateMountain([[(-200, -200), (0, 200), (200, -200)]])
+##drawMountain(mountain, t)
+##myWin.exitonclick()
 
-# Call code for exercise # 5
+##Call code for exercise ##5
 
-# printFib(20)
+##printFib(20)
 
-# Call code for exercise # 6
+##Call code for exercise ##6
 
-# A = [6, 5, 4, 3, 2, 1]
-# B = []
-# C = []
-# print(move(6, A, C, B))
+##A = [6, 5, 4, 3, 2, 1]
+##B = []
+##C = []
+##print(move(6, A, C, B))
 
-# Call code for exercise # 7
+##Call code for exercise ##7
 
-# draw7()
+##draw7()
 
-# Call code for exercise # 8
+##Call code for exercise ##8
 
-# draw8()
+##draw8()
 
-#Call code for exercise # 9
+##Call code for exercise ##9
 
-# solveJugs(0, 3, 0, 4, 2)
+##solveJugs(0, 3, 0, 4, 2)
 
-#Call code for exercise # 10
+##Call code for exercise ##10
 
-# solveJugs(0, 3, 0, 5, 4)
+##solveJugs(0, 3, 0, 5, 4)
 
-#Call code for exercise # 11
+##Call code for exercise ##11
 
-# mission([4, 4, 0, 0, True])
+##mission([4, 4, 0, 0, True])
 
-# Call code for exercise # 12
+##Call code for exercise ##12
 
-# draw12()
+##draw12()
 
-# Call code for exercise # 13
+##Call code for exercise ##13
 
-# pascal(9)
+##pascal(9)
 
 
-# sorts -------------------------------------------------------------------------
+##sorts -------------------------------------------------------------------------
 
-# Quick Sort
+##Quick Sort
 def quickSort(passedList):
     length = len(passedList)
     
@@ -398,19 +398,19 @@ def quickSort(passedList):
     return quickSort(passedList[:rightMark]) + [passedList[rightMark]] + quickSort(passedList[rightMark+1:])
 
 
-# Merge sort
+##Merge sort
 def mergeSort(passedList):
     if len(passedList) > 1:
         mid = len(passedList)//2
         
-        #sort halves
+        ##sort halves
         leftHalf = passedList[:mid]
         leftHalf = mergeSort(leftHalf)
         
         rightHalf = passedList[mid:]
         rightHalf = mergeSort(rightHalf)
         
-        #combine halves
+        ##combine halves
         newList = []
         
         while len(leftHalf) != 0 and len(rightHalf) != 0:
@@ -431,18 +431,18 @@ def mergeSort(passedList):
         return passedList
         
 
-# test code -------------------------
+##test code -------------------------
 
 randomList = [random.randint(0, 50) for i in range(20)]
 
-# sortList = mergeSort(randomList)
+##sortList = mergeSort(randomList)
 
-# sortList = quickSort(randomList)
+##sortList = quickSort(randomList)
 
-# print(sortList)
-# print(sorted(randomList) == sortList)
+##print(sortList)
+##print(sorted(randomList) == sortList)
 
-# BFS/DFS ------------------------------------------------------------------------------
+##BFS/DFS ------------------------------------------------------------------------------
 
 def loadFileInfo( fileName ):
     file = open(  fileName )
@@ -479,7 +479,7 @@ for i in range(1, numRoads+1):
     adjHouses[roadTwo].append(roadOne)
 
     
-#DFS ------------------------------------------------------------------------------
+##DFS ------------------------------------------------------------------------------
 
 def dfs(current, visited, adjList):
     visited[current-1] = True
@@ -487,16 +487,16 @@ def dfs(current, visited, adjList):
         if not visited[house-1]:
             dfs(house, visited, adjList)
     
-# visited = [False for i in range(numHouses)]
+##visited = [False for i in range(numHouses)]
 
-# dfs(houseA, visited, adjHouses)
+##dfs(houseA, visited, adjHouses)
 
-# if visited[houseB-1]:
-#     print("GO ALBERT")
-# else:
-#     print("NO ALBERT")
+##if visited[houseB-1]:
+##print("GO ALBERT")
+##else:
+##print("NO ALBERT")
 
-#BFS -------------------------------------------------------------------------------------
+##BFS -------------------------------------------------------------------------------------
 
 def bfs(queue, adjList, visited, distMap):
     if len(queue) == 0:
@@ -512,30 +512,30 @@ def bfs(queue, adjList, visited, distMap):
     bfs(queue, adjList, visited, distMap)
 
 
-# distMap = {}
-# for i in range(numHouses):
-#     distMap[i+1] = []
+##distMap = {}
+##for i in range(numHouses):
+##distMap[i+1] = []
     
-# queue = [houseA]
-# visited = [False for i in range(numHouses)]
-# visited[houseA-1] = True
-# distMap[houseA] = [0, 0]
+##queue = [houseA]
+##visited = [False for i in range(numHouses)]
+##visited[houseA-1] = True
+##distMap[houseA] = [0, 0]
 
-# bfs(queue, adjHouses, visited, distMap)
-
-
-# if visited[houseB-1]:
-#     path = [houseB]
-#     while path[-1] != 0:
-#         path.append(distMap[path[-1]][1])
-#     path.pop()
-#     print("GO ALBERT")
-#     print(path)
-# else:
-#     print("NO ALBERT")
+##bfs(queue, adjHouses, visited, distMap)
 
 
-# linkedlist ----------------------------------------------------------------------
+##if visited[houseB-1]:
+##path = [houseB]
+##while path[-1] != 0:
+##  path.append(distMap[path[-1]][1])
+##path.pop()
+##print("GO ALBERT")
+##print(path)
+##else:
+##print("NO ALBERT")
+
+
+##linkedlist ----------------------------------------------------------------------
 
 
 def findElement(linked, head, element):
@@ -581,14 +581,14 @@ def printLinked(linked, head):
     
 
 
-# head = ["grape", None]
-# linked = [["grape", None]]
+##head = ["grape", None]
+##linked = [["grape", None]]
 
-# (head, linked) = addHeadElement(linked, head, "apple")
-# linked = appendElement(linked, head, "banana")
-# linked = addElement(linked, head, "grape", "fig")
+##(head, linked) = addHeadElement(linked, head, "apple")
+##linked = appendElement(linked, head, "banana")
+##linked = addElement(linked, head, "grape", "fig")
 
-# print(linked)
-# printLinked(linked, head)
+##print(linked)
+##printLinked(linked, head)
 
 

@@ -20,8 +20,8 @@ class Square():
         self.posy += self.vely
         self.velx -= self.velx // Square.dragFactor
         self.vely -= self.vely // Square.dragFactor
-        # self.posx = int(self.posx)
-        # self.posy = int(self.posy)
+        self.posx = int(self.posx)
+        self.posy = int(self.posy)
         
     def accelerateSquare(self, x, y):
         self.velx += x
@@ -78,7 +78,8 @@ class Square():
                 return False
             
     def findDirection(self):
-        return (self.velx/abs(self.velx) , self.vely/abs(self.vely))
+        print(self.velx/abs(self.velx), self.vely/abs(self.vely))
+        return (self.velx/abs(self.velx), self.vely/abs(self.vely))
     
     def calcLine(self, direction):
         slope = float(self.vely)/self.velx
@@ -100,47 +101,65 @@ class Square():
         linetop = self.posy
         linetopintersect = (linetop - aLine[1])/aLine[0]
         if linetopintersect >= self.posx and linetopintersect <= self.posx + self.lenx:
-            return True
-        return False
+            return (linetopintersect, linetop)
+        return (0, 0)
         
     def lineToBottom(self, aLine):
         linebottom = self.posx + self.lenx
         linebottomintersect = (linebottom - aLine[1])/aLine[0]
         if linebottomintersect >= self.posx and linebottomintersect <= self.posx + self.lenx:
-            return True
-        return False
+            return (linebottomintersect, linebottom)
+        return (0, 0)
         
     def lineToLeft(self, aLine):
         lineleft = self.posy
         lineleftintersect = aLine[0]*lineleft + aLine[1]
         if lineleftintersect >= self.posy and lineleftintersect <= self.posy + self.leny:
-            return True
-        return False
+            return (lineleft, lineleftintersect)
+        return (0, 0)
         
     def lineToRight(self, aLine):
         lineright = self.posy + self.leny
         linerightintersect = aLine[0]*lineright + aLine[1]
         if linerightintersect >= self.posy and linerightintersect <= self.posy + self.leny:
-            return True
-        return False
+            return (lineright, linerightintersect)
+        return (0, 0)
     
     @staticmethod
     def findSwitch(aSquare, direction, aLine):
-        switch = None
+        horizontalInt = None
+        verticalInt = None
         if direction[0] == 1:
-            if aSquare.lineToLeft(aLine):
-                switch = "HORIZONTAL"
+            horizontalInt = aSquare.lineToLeft(aLine)
         else:
-            if aSquare.lineToRight(aLine):
-                switch = "HORIZONTAL"
+            horizontalInt = aSquare.lineToRight(aLine)
         
         if direction[1] == 1:
-            if aSquare.lineToTop(aLine):
-                switch = "VERTICAL"
+            verticalInt = aSquare.lineToTop(aLine)
         else:
-            if aSquare.lineToBottom(aLine):
-                switch = "VERTICAL"
-        return switch
+            verticalInt = aSquare.lineToBottom(aLine)
+            
+        if horizontalInt == None:
+            return "VERTICAL"
+        elif verticalInt == None:
+            return "HORIZONTAL"
+            
+        if direction[0] == 1:
+            if horizontalInt[0] > verticalInt[0]:
+                if direction[1] == 1:
+                    if horizontalInt[1] > verticalInt[1]:
+                        return "HORIZONAL"
+                else:
+                    if horizontalInt[1] < verticalInt[1]:
+                        return "VERTICAL" 
+        else:
+            if horizontalInt[0] < verticalInt[0]:
+                if direction[1] == 1:
+                    if horizontalInt[0] > verticalInt[0]:
+                        return "HORIZONAL"
+                else:
+                    if horizontalInt[1] < verticalInt[1]:
+                        return "VERTICAL"
         
     
     @staticmethod

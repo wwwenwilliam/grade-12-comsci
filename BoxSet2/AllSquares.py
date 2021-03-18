@@ -45,7 +45,6 @@ class AllSquares:
                             switch = "HORIZONTAL"
                         else:
                             squ1direction = squ1.findDirection()
-                            print(squ1direction)
                             squ1line = squ1.calcLine(squ1direction)
                             switch = Square.findSwitch(squ2, squ1direction, squ1line)
                                     
@@ -61,20 +60,20 @@ class AllSquares:
                         
                         
                         if squ1direction != None:
+                            print(switch)
                             if switch == "HORIZONTAL":
+                                print(squ1direction)
                                 if squ1direction[0] == 1:
                                     squ1.posx = squ2.posx - squ1.lenx
                                 else:
                                     squ1.posx = squ2.posx + squ2.lenx
-                            else:
-                                if squ1direction[1] == 1:
-                                    squ1.posy = squ2.posy - squ1.leny
-                                else:
-                                    squ1.posy = squ2.posy + squ2.lenx
+                            # else:
+                            #     if squ1direction[1] == 1:
+                            #         squ1.posy = squ2.posy - squ1.leny
+                            #     else:
+                            #         squ1.posy = squ2.posy + squ2.lenx
                         
-                        print(switch)
                         squ1.switchDirection(switch)
-                        squ2.switchDirection(switch)
                         
                         
         
