@@ -2,7 +2,7 @@
 
 class Computer:
     
-    def __init__(self, mode, playerBoard):
+    def __init__(self, playerBoard):
         #could add modes
         self.mode = mode
         self.playerBoard = playerBoard
