@@ -27,11 +27,11 @@ class Ship:
         #generates a random ship
         randomDirection = bool(int(random(0, 2)))
         if randomDirection:
-            randomX = int(random(0, 10-ln))
-            randomY = int(random(0, 10))
+            randomX = int(random(0, board.getSizeX()-ln))
+            randomY = int(random(0, board.getSizeY()))
         else:
-            randomX = int(random(0, 10))
-            randomY = int(random(0, 10-ln))
+            randomX = int(random(0, board.getSizeX()))
+            randomY = int(random(0, board.getSizeY()-ln))
             
         randomShip = Ship(randomX, randomY, ln, randomDirection) 
         
@@ -41,12 +41,12 @@ class Ship:
         else:
             return randomShip
                 
-    def isOnBoard(self):
+    def isOnBoard(self, board):
         #returns true if ship is in bounds
         for squ in self.occupiedSquares:
-            if squ[0] > 9 or squ[0] < 0:
+            if squ[0] > board.getSizeX()-1 or squ[0] < 0:
                 return False
-            elif squ[1] > 9 or squ[1] < 0:
+            elif squ[1] > board.getSizeY()-1 or squ[1] < 0:
                 return False
         return True
     
@@ -60,17 +60,18 @@ class Ship:
     def drawShip(self, board):
         #draws ship
         fill(100)
+        squareSize = board.getSquSize()
         if self.moving:
             if self.direction:
-                rect(mouseX+5-25, mouseY+5-25, 50*self.ln-10, 50-10)
+                rect(mouseX+5-squareSize/2, mouseY+5-squareSize/2, squareSize*self.ln-10, squareSize-10)
             else:
-                rect(mouseX+5-25, mouseY+5-25, 50-10, 50*self.ln-10)
+                rect(mouseX+5-squareSize/2, mouseY+5-squareSize/2, squareSize-10, squareSize*self.ln-10)
             
         else:
             if self.direction:
-                rect(self.x*50+5+board.x, self.y*50+5+board.y, 50*self.ln-10, 50-10)
+                rect(self.x*squareSize+5+board.x, self.y*squareSize+5+board.y, squareSize*self.ln-10, squareSize-10)
             else:
-                rect(self.x*50+5+board.x, self.y*50+5+board.y, 50-10, 50*self.ln-10)
+                rect(self.x*squareSize+5+board.x, self.y*squareSize+5+board.y, squareSize-10, squareSize*self.ln-10)
             
     #methods for player moving the ship ----------------------------
     
@@ -80,8 +81,8 @@ class Ship:
         
     def placeShip(self, board):
         #should run when mousereleased and a ship is moving
-        placedX = (mouseX-board.x) // 50
-        placedY = (mouseY-board.y) // 50
+        placedX = (mouseX-board.x) // board.getSquSize()
+        placedY = (mouseY-board.y) // board.getSquSize()
         
         #flip a ship
         if placedX == self.x and placedY == self.y:
@@ -92,7 +93,7 @@ class Ship:
         #there's probably a better way to check for validity without making new object
         newShip = Ship(placedX, placedY, self.ln, newDirection)
         isValid = True
-        if not newShip.isOnBoard():
+        if not newShip.isOnBoard(board):
             isValid = False
         if board.shipCollision(newShip):
             isValid = False

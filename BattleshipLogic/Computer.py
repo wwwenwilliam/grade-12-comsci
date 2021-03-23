@@ -4,12 +4,10 @@ class Computer:
     
     def __init__(self, playerBoard):
         #could add modes
-        self.mode = mode
         self.playerBoard = playerBoard
         
     def makeMove(self):
-        if self.mode == 0:
-            self.makeRandomMove()
+        self.makeRandomMove()
             
             
     def makeRandomMove(self):

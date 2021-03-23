@@ -2,11 +2,24 @@ from Ship import Ship
 
 class Board:
     
+    boardSizeX = 10 #has to be >= 6
+    boardSizeY = 10 #has to be >= 6
+    squareSize = 50 #graphical problems when below about 15
+    
     def __init__(self, x, y):
         self.x = x #position of corner of board
         self.y = y
         self.ships = []
-        self.grid = [[False for i in range(10)] for i in range(10)]
+        self.grid = [[False for i in range(Board.boardSizeX)] for i in range(Board.boardSizeY)]
+        
+    def getSizeX(self):
+        return Board.boardSizeX
+    
+    def getSizeY(self):
+        return Board.boardSizeY
+    
+    def getSquSize(self):
+        return Board.squareSize
         
     def addShip(self, ship):
         #adds a ship to the board
@@ -33,15 +46,15 @@ class Board:
         
     def drawBoard(self):
         #draws grid
-        for i in range(10):
-            for j in range(10):
+        for i in range(Board.boardSizeX):
+            for j in range(Board.boardSizeY):
                 fill(100, 100, 255)
-                square(i*50+self.x, j*50+self.y, 50)
+                square(i*Board.squareSize+self.x, j*Board.squareSize+self.y, Board.squareSize)
                 
     def drawHits(self):
         #draws hit markers
-        for i in range(10):
-            for j in range(10):
+        for i in range(Board.boardSizeX):
+            for j in range(Board.boardSizeY):
                 if self.grid[i][j] == True:
                     for ship in self.ships:
                         if ship.isPointOnShip(i, j):
@@ -50,10 +63,10 @@ class Board:
                         else:
                             fill(255)
                         
-                    circle(i*50+self.x+25, j*50+self.y+25, 25)
+                    circle(i*Board.squareSize+self.x+Board.squareSize/2, j*Board.squareSize+self.y+Board.squareSize/2, Board.squareSize/2)
     
     def isSquareOnBoard(self, x, y):
-        if x >= 0 and x <= 9 and y >= 0 and y <= 9:
+        if x >= 0 and x <= Board.boardSizeX - 1 and y >= 0 and y <= Board.boardSizeY - 1:
             return True
         return False
                     
@@ -66,8 +79,8 @@ class Board:
         
     def mouseClickedCheck(self):
         #activates fns in ship
-        clickX = (mouseX-self.x) // 50
-        clickY = (mouseY-self.y) // 50
+        clickX = (mouseX-self.x) // Board.squareSize
+        clickY = (mouseY-self.y) // Board.squareSize
         click = [clickX, clickY]
         
         for ship in self.ships:
@@ -85,8 +98,8 @@ class Board:
     
     def clickToFire(self, message):
         #calls fire based on mouse position
-        clickX = (mouseX-self.x) // 50
-        clickY = (mouseY-self.y) // 50
+        clickX = (mouseX-self.x) // Board.squareSize
+        clickY = (mouseY-self.y) // Board.squareSize
         return self.fire(clickX, clickY, message)
     
     def fire(self, clickX, clickY, message):

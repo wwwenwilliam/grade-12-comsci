@@ -29,7 +29,7 @@ def setup():
     playerBoard.createRandomBoard()
     computerBoard.createRandomBoard()
     
-    #scoreboard.clearScores() #######TEMPORARY
+    scoreboard.clearScores() #######TEMPORARY
     
     
     
@@ -72,7 +72,7 @@ def draw():
         playerBoard.drawHits()
         
         computerBoard.drawBoard()
-        # computerBoard.drawShips()
+        computerBoard.drawShips()
         computerBoard.drawHits()
         
         #draw any messages
