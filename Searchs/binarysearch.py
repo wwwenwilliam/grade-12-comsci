@@ -5,12 +5,11 @@ def binarySearch(passedList, searchItem):
     bottom = len(passedList)
     middle = (bottom + top) // 2
     
-    while True:
-        if top == bottom:
-            break
-        if passedList[middle] == searchItem:
-            break
-        elif passedList[middle] < searchItem:
+    if passedList[middle] == searchItem:
+        return middle
+    
+    while top != bottom:
+        if passedList[middle] < searchItem:
             top = middle + 1
         else: 
             bottom = middle - 1
@@ -22,4 +21,4 @@ def binarySearch(passedList, searchItem):
         return None
     
 testList = [2, 5, 6, 7, 8, 10, 15]
-print(binarySearch(testList, 3))
+print(binarySearch(testList, 6))
