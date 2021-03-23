@@ -148,7 +148,7 @@ r = Rectangle(Point(4, 5), 6, 5)
 ##print(r.diagonal())
 
 ###question 14
-r2 = Rectangle(Point(5, 3), 6, 5)
+##r2 = Rectangle(Point(5, 3), 6, 5)
 ##print(r)
 ##print(r2)
 ##print(r.collide(r2))
