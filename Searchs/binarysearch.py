@@ -20,5 +20,5 @@ def binarySearch(passedList, searchItem):
         print("Item not found")
         return None
     
-testList = [2, 5, 6, 7, 8, 10, 15]
-print(binarySearch(testList, 6))
+testList = ["A", "B", "C", "D"]
+print(binarySearch(testList, "C"))

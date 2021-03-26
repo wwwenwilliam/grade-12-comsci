@@ -12,16 +12,6 @@ class Board:
         self.ships = []
         self.grid = [[False for i in range(Board.boardSizeX)] for i in range(Board.boardSizeY)]
         
-    @staticmethod
-    def setDimensions(self, boardSizeX, boardSizeY, squareSize):
-        if boardSizeX < 6 or boardSizeY < 6:
-            raise Exception("Board size too small")
-        if squareSize < 15:
-            raise Exception("Square size too small")
-        Board.boardSizeX = boardSizeX
-        Board.boardSizeY = boardSizeY
-        Board.squareSize = squareSize
-        
     def getSizeX(self):
         return Board.boardSizeX
     
