@@ -31,7 +31,7 @@ class Menu():
             rect(self.x, self.y, self.lenx, self.leny)
             fill(0)
             textSize(40)
-            text("Menu", self.x+self.lenx/2, self.y+self.leny/2)
+            text("MENU", self.x+self.lenx/2, self.y+self.leny/2)
     
 
 class Keyboard:
@@ -39,13 +39,17 @@ class Keyboard:
     ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     
     @staticmethod
-    def keyIn(name):
+    def keyIn(string):
         if key == BACKSPACE:
-            if len(name) > 0:
-                name = name[:-1]
-        if key.upper() in Keyboard.ALPHABET:
-            name += key.upper()
-        return name
+            if len(string) > 0:
+                string = string[:-1]
+        try:
+            if key.upper() in Keyboard.ALPHABET:
+                string += key.upper()
+        except AttributeError:
+            print("invalid key")
+            
+        return string
 
 class Button:
     

@@ -14,19 +14,20 @@ computer = Computer(playerBoard)
 player = PlayerInfo()
 
 turn = True #True-player, False-comp
-menuState = None
+menuState = None #0-help, 1-scores, 2-exit
 
 turnMessager = Messager(200, 550)
 sinkMessager = Messager(450, 50)
 bottomRightButton = Button(500, 510, 200, 80)
 
-menu = Menu(710, 510, 330, 80, [Button(710, 510, 100, 80, "?"), Button(810, 510, 130, 80, "Scores"), Button(940, 510, 100, 80, "Exit")])
+title = None
+menu = Menu(710, 510, 330, 80, [Button(710, 510, 100, 80, "?"), Button(810, 510, 130, 80, "SCORES"), Button(940, 510, 100, 80, "EXIT")])
 
 scoreboard = Scoreboard()
 
-name = ""
 
 def reset():
+    #resets all variables to start state
     global gameState, playerBoard, computerBoard, turn, computer, turnMessager, sinkMessager, bottomRightButton, scoreboard, player, menu, menuState
     playerBoard = Board(550, 0)
     computerBoard = Board(0, 0)
@@ -34,31 +35,58 @@ def reset():
     playerBoard.createRandomBoard()
     computerBoard.createRandomBoard()
     
-    bottomRightButton.setMessage("Ready")
-    turnMessager.setMessage("Place your ships")
+    bottomRightButton.setMessage("READY")
+    turnMessager.setMessage("PLACE YOUR SHIPS")
     sinkMessager.setMessage("")
     turn = True
     player.score = 0
+    player.name = ""
     
-    gameState = 1
+    gameState = 0
+    
+def loadfilesetup():
+    #loads board setup from file
+    boardsetup = []
+    try:
+        with open("boardsetup.txt", "r") as f:
+            boardsetup = f.readline().strip().split(", ")
+    
+        for i in range(len(boardsetup)):
+            boardsetup[i] = int(boardsetup[i])
+            
+    except IOError:
+        print("Could not find setup file, setting default parameters")
+        boardsetup = [10, 10, 50]
+        
+    Board.setDimensions(boardsetup[0], boardsetup[1], boardsetup[2])
+    
+    
 
 def setup():
-    global playerBoard, computerBoard
+    global playerBoard, computerBoard, title
     size(1050, 600)
     textAlign(CENTER, CENTER)
+    
+    #setup board
+    loadfilesetup()
     
     #generate boards
     playerBoard.createRandomBoard()
     computerBoard.createRandomBoard()
     
-    #scoreboard.clearScores() #######TEMPORARY
+    #setup graphics
+    title = loadImage("battleshiplogo.png")
+    font = loadFont("Impact.vlw")
+    textFont(font, 32)
+    
+    #scoreboard.clearScores() #######BE CAREFUL WHEN UNCOMMENTING
     
     
     
     
 def draw():
     #no logic in here, only graphics
-    global gameState, playerBoard, computerBoard, turnMessager, sinkMessager, bottomRightButton, scoreboard, player, menu, menuState
+    global gameState, playerBoard, computerBoard, turnMessager, sinkMessager, bottomRightButton, scoreboard, player, menu, menuState, title
     background(0)
     
 
@@ -67,7 +95,8 @@ def draw():
         menu.drawMenu()
         if menuState[1] == 0:
             #help
-            pass
+            fill(255)
+            text("help screen", 500, 300) ###placeholder
         elif menuState[1] == 1:
             #scores
             scoreboard.displayScores(300, 0)
@@ -76,17 +105,18 @@ def draw():
     
     if gameState == 0:
         #add some title picture
-        
+        imageMode(CENTER)
+        image(title, 525, 100)
         
         #display player name
         fill(255)
         textSize(40)
-        text("Enter your name:", 350, 400)
+        text("ENTER YOUR NAME:", 350, 300)
         textAlign(BASELINE, CENTER)
-        player.displayName(550, 400)
+        player.displayName(550, 300)
         textAlign(CENTER, CENTER)
         
-        #say something like press annywhere to begin
+        text("CLICK ANYWHERE TO BEGIN", 500, 400)
         
         #menu
         menu.drawMenu()
@@ -137,12 +167,16 @@ def mousePressed():
     global gameState, playerBoard, computerBoard
     
     if gameState == 1:
+        #only for moving ships
         playerBoard.mouseClickedCheck()
 
 def mouseReleased():
     #most logic should go in here
     global gameState, playerBoard, computerBoard, turn, computer, turnMessager, sinkMessager, bottomRightButton, scoreboard, player, menu, menuState
+    
+    #menu takes priority for clicks
     if menu.click() != None:
+        #saves the gameState when moving to menu
         if gameState == -1:
             if menuState[1] == menu.click():
                 gameState = menuState[0]
@@ -151,27 +185,32 @@ def mouseReleased():
         else:
             menuState = [gameState, menu.click()]
             gameState = -1
+        #resets scoreboard display whenever menu button is clicked
+        scoreboard.resetStart()
         
-    if gameState == -1:
+        #exit for exit button
+        if menuState[1] == 2:
+            exit()
+        
+    elif gameState == -1:
         if menuState[1] == 0:
-            #help
+            #help screen
             pass
         elif menuState[1] == 1:
-            #scores
-            pass
-        elif menuState[1] == 2:
-            exit()
+            #scores screen
+            scoreboard.incrementStart()
     
-    elif gameState == 0 and menu.click() == None:
+    elif gameState == 0 and menu.click() == None and player.name != "":
         #set buttons message to "Ready" before going to gameState = 1
-        bottomRightButton.setMessage("Ready")
-        turnMessager.setMessage("Place your ships")
+        bottomRightButton.setMessage("READY")
+        turnMessager.setMessage("PLACE YOUR SHIPS")
         gameState = 1
         
     elif gameState == 1:
         if bottomRightButton.isClicked(): #button takes priority
-            bottomRightButton.setMessage("Reset")
-            turnMessager.setMessage("Player's Turn")
+            #moves to next state
+            bottomRightButton.setMessage("RESET")
+            turnMessager.setMessage("PLAYER'S TURN")
             gameState = 2
         else:
             #player places pieces
@@ -180,6 +219,7 @@ def mouseReleased():
         
     elif gameState == 2:
         if bottomRightButton.isClicked():
+            #reset button
             reset()
         if not computerBoard.checkLoss() or playerBoard.checkLoss():
             if turn:
@@ -187,10 +227,10 @@ def mouseReleased():
                 sinkMessager.setMessage("")
                 if computerBoard.clickToFire(sinkMessager):
                     player.score += 1
-                    turnMessager.setMessage("Computer's Turn")
+                    turnMessager.setMessage("COMPUTER'S TURN")
                     
                     if computerBoard.checkLoss():
-                        turnMessager.setMessage("Player Wins")
+                        turnMessager.setMessage("PLAYER WINS")
                         #update scoreboard
                         scoreboard.addScore(player)
                         scoreboard.updateFile()
@@ -201,10 +241,10 @@ def mouseReleased():
                 #player clicks anywhere to pass AI's turn
                 computer.makeMove()
                 
-                turnMessager.setMessage("Player's Turn")
+                turnMessager.setMessage("PLAYER'S TURN")
                 
                 if playerBoard.checkLoss():
-                    turnMessager.setMessage("Computer Wins")
+                    turnMessager.setMessage("COMPUTER WINS")
                     
                 turn = not(turn)
 

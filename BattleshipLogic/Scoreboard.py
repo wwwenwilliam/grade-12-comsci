@@ -14,8 +14,9 @@ class Scoreboard:
             file = open("scores.pickle", "rb")
         finally:    
             self.scores = pickle.load(file) #dict of names w/scores
-            print(self.scores)
             file.close()
+            
+        self.start = 0
             
     def clearScores(self):
         #clears the scores file
@@ -34,14 +35,23 @@ class Scoreboard:
     def displayScores(self, x, y):
         #prints scores to screen
         display = self.toList()
-        display = quickSort(0, display)
+        display = quickSort(1, display)
         textSize(30)
         fill(255)
-        text("Name", x, 50 + y)
-        text("Score", x+300, 50 + y)
-        for i in range(len(display)):
-            text(display[i][0], x, i*100 + 150 + y)
-            text(display[i][1], x+300, i*100 + 150 + y)
+        text("NAME", x, 50 + y)
+        text("SCORE", x+300, 50 + y)
+        for i in range(self.start, self.start+5):
+            if i >= len(display):
+                break
+            text(display[i][0], x, (i-self.start)*100 + 150 + y)
+            text(display[i][1], x+300, (i-self.start)*100 + 150 + y)
+            
+    def incrementStart(self):
+        if self.start + 5 < len(self.scores):
+            self.start += 1
+            
+    def resetStart(self):
+        self.start = 0
         
     def addScore(self, player):
         #adds a score

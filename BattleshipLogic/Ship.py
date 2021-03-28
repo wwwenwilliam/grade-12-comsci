@@ -1,7 +1,6 @@
 class Ship:
     
     shipType = [None, None, "Destroyer", "Submarine", "Cruiser", "Battleship", "Carrier"]
-    shipImage = [None, None, "placeholder"]
     
     def __init__(self, x, y, ln, direction):
         self.x = x
@@ -81,6 +80,7 @@ class Ship:
         
     def placeShip(self, board):
         #should run when mousereleased and a ship is moving
+        #checks if a new position is valid, updates to new position if valid
         placedX = (mouseX-board.x) // board.getSquSize()
         placedY = (mouseY-board.y) // board.getSquSize()
         
@@ -109,6 +109,8 @@ class Ship:
     #methods for game ------------------------------------------
     
     def hit(self, clickX, clickY, message):
+        #checks if a move hit this ship
+        #updates own logic and a messenger if hit
         if self.isPointOnShip(clickX, clickY):
             if self.direction:
                 self.hits[clickX-self.x] = True
@@ -119,6 +121,7 @@ class Ship:
                 message.setMessage("{} sunk".format(Ship.shipType[self.ln]))
                 
     def isSunk(self):
+        #checks if sunk
         for hit in self.hits:
             if not hit:
                 return False
