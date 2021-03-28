@@ -7,7 +7,7 @@ from Scoreboard import Scoreboard
 from PlayerInfo import PlayerInfo
 from Interface import Keyboard
 
-gameState = 0 #0-menu, 1-ship placement, 2-play
+gameState = 0 #-1-menu, 0-start screen, 1-ship placement, 2-play
 playerBoard = Board(550, 0)
 computerBoard = Board(0, 0)
 computer = Computer(playerBoard)
