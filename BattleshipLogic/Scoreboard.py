@@ -46,9 +46,11 @@ class Scoreboard:
             text(display[i][0], x, (i-self.start)*100 + 150 + y)
             text(display[i][1], x+300, (i-self.start)*100 + 150 + y)
             
-    def incrementStart(self):
-        if self.start + 5 < len(self.scores):
-            self.start += 1
+    def incrementStart(self, direction):
+        if self.start + 5 < len(self.scores) and direction == 1:
+            self.start += direction
+        elif self.start > 0 and direction == -1:
+            self.start += direction
             
     def resetStart(self):
         self.start = 0

@@ -162,13 +162,20 @@ def keyPressed():
         #player should enter name in the menu
         player.name = Keyboard.keyIn(player.name)
         
-
 def mousePressed():
     global gameState, playerBoard, computerBoard
     
     if gameState == 1:
         #only for moving ships
         playerBoard.mouseClickedCheck()
+        
+def mouseWheel(event):
+    global gameState, menuState, scoreboard
+    
+    if gameState == -1 and menuState[1] == 1:
+        scoreboard.incrementStart(event.getCount())
+        
+    print(event.getCount())
 
 def mouseReleased():
     #most logic should go in here
@@ -198,7 +205,7 @@ def mouseReleased():
             pass
         elif menuState[1] == 1:
             #scores screen
-            scoreboard.incrementStart()
+            pass
     
     elif gameState == 0 and menu.click() == None and player.name != "":
         #set buttons message to "Ready" before going to gameState = 1
