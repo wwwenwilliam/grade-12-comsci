@@ -207,14 +207,14 @@ def mouseReleased():
         gameState = 1
         
     elif gameState == 1:
-        if bottomRightButton.isClicked(): #button takes priority
+        #player places piece
+        playerBoard.mouseReleasedCheck()
+        
+        if bottomRightButton.isClicked():
             #moves to next state
             bottomRightButton.setMessage("RESET")
             turnMessager.setMessage("PLAYER'S TURN")
             gameState = 2
-        else:
-            #player places pieces
-            playerBoard.mouseReleasedCheck()
         
         
     elif gameState == 2:

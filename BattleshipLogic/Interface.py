@@ -8,7 +8,6 @@ class Menu():
         self.lenx = lenx
         self.leny = leny
         self.buttons = buttons
-        self.menuMode = None
         
     def clickIsIn(self):
         if mouseX >= self.x and mouseX < self.x + self.lenx:

@@ -18,8 +18,6 @@ class Ship:
                 
         #stores info for moving the ship
         self.moving = False
-        self.moveX = 0
-        self.moveY = 0
                 
     @staticmethod
     def generateRandomShip(ln, board):
