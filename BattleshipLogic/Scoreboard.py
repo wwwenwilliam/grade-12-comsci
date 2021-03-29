@@ -17,6 +17,7 @@ class Scoreboard:
             file.close()
             
         self.start = 0
+        self.scoreList = quickSort(1, self.toList())
             
     def clearScores(self):
         #clears the scores file
@@ -35,7 +36,6 @@ class Scoreboard:
     def displayScores(self, x, y):
         #prints scores to screen
         display = self.toList()
-        display = quickSort(1, display)
         textSize(30)
         fill(255)
         text("NAME", x, 50 + y)
@@ -60,8 +60,13 @@ class Scoreboard:
         if player.name in self.scores:
             if self.scores[player.name] > player.score:
                 self.scores[player.name] = player.score
+                
+                index = binarySearch(0, self.scoreList, player.name)
+                self.scoreList[index][1] = player.score
         else:
             self.scores[player.name] = player.score
+            self.scoreList.append([player.name, player.score])
+            self.scoreList = insertionSort(1, self.scoreList)
         
     def updateFile(self):
         #sorts scores

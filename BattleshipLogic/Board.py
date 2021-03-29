@@ -13,6 +13,23 @@ class Board:
         self.grid = [[False for i in range(Board.boardSizeX)] for i in range(Board.boardSizeY)]
         
     @staticmethod
+    def setDimensionsFromFile(file):
+        #loads board setup from file
+        boardsetup = []
+        try:
+            with open(file, "r") as f:
+                boardsetup = f.readline().strip().split(", ")
+        
+            for i in range(len(boardsetup)):
+                boardsetup[i] = int(boardsetup[i])
+                
+        except IOError:
+            print("Could not find setup file, setting default parameters")
+            boardsetup = [10, 10, 50]
+            
+        Board.setDimensions(boardsetup[0], boardsetup[1], boardsetup[2])
+        
+    @staticmethod
     def setDimensions(boardSizeX, boardSizeY, squareSize):
         #sets board dimensions
         if boardSizeX < 6 or boardSizeY < 6:

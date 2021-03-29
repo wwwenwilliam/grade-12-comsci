@@ -22,6 +22,7 @@ bottomRightButton = Button(500, 510, 200, 80)
 
 title = None
 menu = Menu(710, 510, 330, 80, [Button(710, 510, 100, 80, "?"), Button(810, 510, 130, 80, "SCORES"), Button(940, 510, 100, 80, "EXIT")])
+instructions = []
 
 scoreboard = Scoreboard()
 
@@ -44,31 +45,23 @@ def reset():
     
     gameState = 0
     
-def loadfilesetup():
-    #loads board setup from file
-    boardsetup = []
-    try:
-        with open("boardsetup.txt", "r") as f:
-            boardsetup = f.readline().strip().split(", ")
-    
-        for i in range(len(boardsetup)):
-            boardsetup[i] = int(boardsetup[i])
-            
-    except IOError:
-        print("Could not find setup file, setting default parameters")
-        boardsetup = [10, 10, 50]
-        
-    Board.setDimensions(boardsetup[0], boardsetup[1], boardsetup[2])
-    
-    
+def openFile(file):
+    outList = []
+    with open(file, "r") as f:
+        for ln in f:
+            outList.append(ln.strip())
+    return outList
 
 def setup():
-    global playerBoard, computerBoard, title
+    global playerBoard, computerBoard, title, instructions
     size(1050, 600)
     textAlign(CENTER, CENTER)
     
     #setup board
-    loadfilesetup()
+    Board.setDimensionsFromFile("boardsetup.txt")
+    
+    #instructions
+    instructions = openFile("instructions.txt")
     
     #generate boards
     playerBoard.createRandomBoard()
@@ -82,11 +75,9 @@ def setup():
     #scoreboard.clearScores() #######BE CAREFUL WHEN UNCOMMENTING
     
     
-    
-    
 def draw():
     #no logic in here, only graphics
-    global gameState, playerBoard, computerBoard, turnMessager, sinkMessager, bottomRightButton, scoreboard, player, menu, menuState, title
+    global gameState, playerBoard, computerBoard, turnMessager, sinkMessager, bottomRightButton, scoreboard, player, menu, menuState, title, instructions
     background(0)
     
 
@@ -96,12 +87,16 @@ def draw():
         if menuState[1] == 0:
             #help
             fill(255)
-            text("help screen", 500, 300) ###placeholder
+            textSize(20)
+            for i in range(len(instructions)):
+                text(instructions[i], 500, 25*i+25)
         elif menuState[1] == 1:
             #scores
             scoreboard.displayScores(300, 0)
             text("Your High Score:", 850, 50)
             text(str(scoreboard.findScore(player)), 850, 100)
+            text("Your Current Score:", 850, 150)
+            text(str(player.score), 850, 200)
     
     if gameState == 0:
         #add some title picture
@@ -174,8 +169,6 @@ def mouseWheel(event):
     
     if gameState == -1 and menuState[1] == 1:
         scoreboard.incrementStart(event.getCount())
-        
-    print(event.getCount())
 
 def mouseReleased():
     #most logic should go in here
