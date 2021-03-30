@@ -47,9 +47,13 @@ def reset():
     
 def openFile(file):
     outList = []
-    with open(file, "r") as f:
-        for ln in f:
-            outList.append(ln.strip())
+    try:
+        with open(file, "r") as f:
+            for ln in f:
+                outList.append(ln.strip())
+    except IOError:
+        print("{} not found".format(file))
+        return None
     return outList
 
 def setup():
@@ -62,6 +66,8 @@ def setup():
     
     #instructions
     instructions = openFile("instructions.txt")
+    if instructions == None:
+        instructions = ["instructions not found"]
     
     #generate boards
     playerBoard.createRandomBoard()
