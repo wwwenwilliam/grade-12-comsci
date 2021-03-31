@@ -99,12 +99,14 @@ def draw():
         elif menuState[1] == 1:
             #scores
             scoreboard.displayScores(300, 0)
+            #high score
             text("Your High Score:", 850, 50)
             text(str(scoreboard.findScore(player)), 850, 100)
+            #current score
             text("Your Current Score:", 850, 150)
             text(str(player.score), 850, 200)
     
-    if gameState == 0:
+    elif gameState == 0:
         #add some title picture
         imageMode(CENTER)
         image(title, 525, 100)
@@ -129,7 +131,7 @@ def draw():
         playerBoard.drawShips()
         
         computerBoard.drawBoard()
-        #computerBoard.drawShips()
+        #computerBoard.drawShips() #should usually be commented out
         
         #draw message
         turnMessager.printMessage(40)
@@ -145,7 +147,7 @@ def draw():
         playerBoard.drawHits()
         
         computerBoard.drawBoard()
-        computerBoard.drawShips()
+        computerBoard.drawShips() #should usually be commented out
         computerBoard.drawHits()
         
         #draw any messages
@@ -174,6 +176,7 @@ def mouseWheel(event):
     global gameState, menuState, scoreboard
     
     if gameState == -1 and menuState[1] == 1:
+        #moves scoreboard up and down
         scoreboard.incrementStart(event.getCount())
 
 def mouseReleased():
@@ -197,17 +200,10 @@ def mouseReleased():
         #exit for exit button
         if menuState[1] == 2:
             exit()
-        
-    elif gameState == -1:
-        if menuState[1] == 0:
-            #help screen
-            pass
-        elif menuState[1] == 1:
-            #scores screen
-            pass
     
-    elif gameState == 0 and menu.click() == None and player.name != "":
+    elif gameState == 0 and player.name != "":
         #set buttons message to "Ready" before going to gameState = 1
+        #only moves to next state if menu isn't clicked and player's name isn't blank
         bottomRightButton.setMessage("READY")
         turnMessager.setMessage("PLACE YOUR SHIPS")
         gameState = 1
@@ -224,9 +220,6 @@ def mouseReleased():
         
         
     elif gameState == 2:
-        if bottomRightButton.isClicked():
-            #reset button
-            reset()
         if not computerBoard.checkLoss() or playerBoard.checkLoss():
             if turn:
                 #player clicks for their turn
@@ -253,6 +246,10 @@ def mouseReleased():
                     turnMessager.setMessage("COMPUTER WINS")
                     
                 turn = not(turn)
+                
+        elif bottomRightButton.isClicked():
+            #reset button
+            reset()
 
         
         

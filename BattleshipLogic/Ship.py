@@ -1,3 +1,4 @@
+
 class Ship:
     
     shipType = [None, None, "Destroyer", "Submarine", "Cruiser", "Battleship", "Carrier"]

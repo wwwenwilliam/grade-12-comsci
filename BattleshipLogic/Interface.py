@@ -35,16 +35,16 @@ class Menu():
 
 class Keyboard:
     
-    ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
     
     @staticmethod
     def keyIn(string):
-        if key == BACKSPACE:
-            if len(string) > 0:
-                string = string[:-1]
         try:
-            if key.upper() in Keyboard.ALPHABET:
+            if key.upper() in Keyboard.ALPHABET and len(string) != 15:
                 string += key.upper()
+            elif key == BACKSPACE:
+                if len(string) > 0:
+                    string = string[:-1]
         except AttributeError:
             print("invalid key")
             

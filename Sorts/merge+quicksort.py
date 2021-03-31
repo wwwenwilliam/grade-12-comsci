@@ -76,7 +76,7 @@ print(randomList)
 
 # sortList = mergeSort(randomList)
 
-# sortList = quickSort(randomList)
+sortList = quickSort(randomList)
 
 print(sortList)
 print(sorted(randomList) == sortList)

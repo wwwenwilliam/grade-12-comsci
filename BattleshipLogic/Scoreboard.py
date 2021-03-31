@@ -35,16 +35,15 @@ class Scoreboard:
     
     def displayScores(self, x, y):
         #prints scores to screen
-        display = self.toList()
         textSize(30)
         fill(255)
         text("NAME", x, 50 + y)
         text("SCORE", x+300, 50 + y)
         for i in range(self.start, self.start+5):
-            if i >= len(display):
+            if i >= len(self.scoreList):
                 break
-            text(display[i][0], x, (i-self.start)*100 + 150 + y)
-            text(display[i][1], x+300, (i-self.start)*100 + 150 + y)
+            text(self.scoreList[i][0], x, (i-self.start)*100 + 150 + y)
+            text(self.scoreList[i][1], x+300, (i-self.start)*100 + 150 + y)
             
     def incrementStart(self, direction):
         if self.start + 5 < len(self.scores) and direction == 1:
@@ -79,16 +78,6 @@ class Scoreboard:
             return self.scores[player.name]
         else:
             return None
-        
-def findMin(colNum, passedList):
-    #takes list and finds the minimum
-    minimum = passedList[0][colNum]
-    minimumPos = 0
-    for i in range(1, len(passedList)):
-        if passedList[i][colNum] < minimum:
-            minimum = passedList[i][colNum]
-            minimumPos = i
-    return (minimum, minimumPos)
 
 def binarySearch(colNum, passedList, searchItem):
     #takes sorted list and an item
@@ -117,8 +106,13 @@ def insertionSort(colNum, passedList):
     length = len(passedList)
     for i in range(length-1):
         #find minimum value in rest of list
-        sublist = passedList[i:]
-        minimumPos = findMin(colNum, sublist)[1] + i
+        minimum = passedList[i][colNum]
+        minimumPos = i
+        for j in range(i, length):
+            if passedList[j][colNum] < minimum:
+                minimum = passedList[j][colNum]
+                minimumPos = j
+                
         #insert min value with value at correct pos
         passedList.insert(i, passedList[minimumPos])
         passedList.pop(minimumPos+1)
