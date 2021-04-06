@@ -93,9 +93,9 @@ def draw():
         if menuState[1] == 0:
             #help
             fill(255)
-            textSize(20)
+            textSize(25)
             for i in range(len(instructions)):
-                text(instructions[i], 500, 25*i+25)
+                text(instructions[i], 525, 30*i+100)
         elif menuState[1] == 1:
             #scores
             scoreboard.displayScores(300, 0)

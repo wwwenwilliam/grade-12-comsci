@@ -64,12 +64,18 @@ class Ship:
                 rect(mouseX+5-squareSize/2, mouseY+5-squareSize/2, squareSize*self.ln-10, squareSize-10)
             else:
                 rect(mouseX+5-squareSize/2, mouseY+5-squareSize/2, squareSize-10, squareSize*self.ln-10)
+            fill(75)
+            for squ in self.occupiedSquares:
+                circle(mouseX+squareSize*(squ[0]-self.x), mouseY+squareSize*(squ[1]-self.y), squareSize/2)
             
         else:
             if self.direction:
                 rect(self.x*squareSize+5+board.x, self.y*squareSize+5+board.y, squareSize*self.ln-10, squareSize-10)
             else:
                 rect(self.x*squareSize+5+board.x, self.y*squareSize+5+board.y, squareSize-10, squareSize*self.ln-10)
+            fill(75)
+            for squ in self.occupiedSquares:
+                circle(squareSize*squ[0]+board.x+squareSize/2, squareSize*squ[1]+board.y+squareSize/2, squareSize/2)
             
     #methods for player moving the ship ----------------------------
     
