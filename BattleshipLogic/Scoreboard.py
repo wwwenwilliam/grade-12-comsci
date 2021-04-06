@@ -7,6 +7,7 @@ class Scoreboard:
         try:
             file = open("scores.pickle", "rb")
         except IOError:
+            #creates blank file if not found
             print("scores not found, new scores file created")
             file = open("scores.pickle", "wb")
             pickle.dump({}, file)
@@ -28,6 +29,7 @@ class Scoreboard:
         file.close()
         
     def toList(self):
+        #converts score dict to a list
         outList = []
         for name in self.scores:
             outList.append([name, self.scores[name]])
@@ -35,6 +37,7 @@ class Scoreboard:
     
     def displayScores(self, x, y):
         #prints scores to screen
+        #takes x and y of position to draw from
         textSize(30)
         fill(255)
         text("NAME", x, 50 + y)
@@ -46,16 +49,18 @@ class Scoreboard:
             text(self.scoreList[i][1], x+300, (i-self.start)*100 + 150 + y)
             
     def incrementStart(self, direction):
+        #takes 1/-1 to scroll up/down
         if self.start + 5 < len(self.scores) and direction == 1:
             self.start += direction
         elif self.start > 0 and direction == -1:
             self.start += direction
             
     def resetStart(self):
+        #resets scrolling
         self.start = 0
         
     def addScore(self, player):
-        #adds a score
+        #adds a score based on a PlayerInfo obj
         if player.name in self.scores:
             if self.scores[player.name] > player.score:
                 self.scores[player.name] = player.score
@@ -74,6 +79,7 @@ class Scoreboard:
         f.close()
         
     def findScore(self, player):
+        #takes a PlayerInfo and returns a score/None
         if player.name in self.scores:
             return self.scores[player.name]
         else:

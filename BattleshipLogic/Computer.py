@@ -9,8 +9,8 @@ class Computer:
     def makeMove(self):
         self.makeRandomMove()
             
-            
     def makeRandomMove(self):
+        #makes a random valid move
         randomX = int(random(0, 10))
         randomY = int(random(0, 10))
         if self.playerBoard.fire(randomX, randomY, None):

@@ -104,6 +104,12 @@ class Board:
         for ship in self.ships:
             ship.drawShip(self)
             
+    def drawSunkShips(self):
+        #draws sunk ships on board
+        for ship in self.ships:
+            if ship.isSunk():
+                ship.drawShip(self)
+            
     #for player ship placement ----------------------- (could be moved to a child class?)
         
     def mouseClickedCheck(self):
@@ -147,7 +153,7 @@ class Board:
         return True
     
     def checkLoss(self):
-        #checks for a loss
+        #checks for a loss (all ships sunk)
         for ship in self.ships:
             if not ship.isSunk():
                 return False

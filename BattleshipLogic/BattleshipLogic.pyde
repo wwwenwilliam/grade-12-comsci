@@ -46,6 +46,8 @@ def reset():
     gameState = 0
     
 def openFile(file):
+    #opens a txt file
+    #returns a list
     outList = []
     try:
         with open(file, "r") as f:
@@ -147,7 +149,8 @@ def draw():
         playerBoard.drawHits()
         
         computerBoard.drawBoard()
-        computerBoard.drawShips() #should usually be commented out
+        #computerBoard.drawShips() #should usually be commented out
+        computerBoard.drawSunkShips()
         computerBoard.drawHits()
         
         #draw any messages
@@ -194,6 +197,7 @@ def mouseReleased():
         else:
             menuState = [gameState, menu.click()]
             gameState = -1
+            
         #resets scoreboard display whenever menu button is clicked
         scoreboard.resetStart()
         
@@ -209,7 +213,7 @@ def mouseReleased():
         gameState = 1
         
     elif gameState == 1:
-        #player places piece
+        #player places pieces
         playerBoard.mouseReleasedCheck()
         
         if bottomRightButton.isClicked():

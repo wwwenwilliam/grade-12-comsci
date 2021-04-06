@@ -10,18 +10,21 @@ class Menu():
         self.buttons = buttons
         
     def clickIsIn(self):
+        #checks if mouse if within menu
         if mouseX >= self.x and mouseX < self.x + self.lenx:
             if mouseY >= self.y and mouseY < self.y + self.leny:
                 return True
         return False
     
     def click(self):
+        #returns which button was clicked as index of buttons
         for i in range(len(self.buttons)):
             if self.buttons[i].isClicked():
                 return i
         return None
         
     def drawMenu(self):
+        #draws menu
         if self.clickIsIn():
             for button in self.buttons:
                 button.drawButton()
@@ -39,6 +42,7 @@ class Keyboard:
     
     @staticmethod
     def keyIn(string):
+        #takes string, modifies it based on key that was pressed
         try:
             if key.upper() in Keyboard.ALPHABET and len(string) != 15:
                 string += key.upper()
@@ -60,6 +64,7 @@ class Button:
         self.message = message
         
     def drawButton(self):
+        #draws
         fill(255)
         rect(self.x, self.y, self.lenx, self.leny)
         textSize(20)
@@ -70,6 +75,7 @@ class Button:
         self.message = message
         
     def isClicked(self):
+        #checks if mouse is within bounds
         if mouseX >= self.x and mouseX < self.x + self.lenx:
             if mouseY >= self.y and mouseY < self.y + self.leny:
                 return True
@@ -87,6 +93,7 @@ class Messager:
         self.message = message
         
     def printMessage(self, wordSize):
+        #prints message to screen
         textSize(wordSize)
         fill(255)
         text(self.message, self.x, self.y)
