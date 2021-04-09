@@ -276,7 +276,7 @@ def mouseReleased():
                         
                     turn = not(turn)
                 
-        elif bottomRightButton.isClicked():
+        if bottomRightButton.isClicked():
             #reset button
             reset()
 
