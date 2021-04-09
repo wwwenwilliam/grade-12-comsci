@@ -1,4 +1,5 @@
 from Ship import Ship
+import os
 
 class Board:
     
@@ -24,7 +25,7 @@ class Board:
                 boardsetup[i] = int(boardsetup[i])
                 
         except IOError:
-            print("Could not find setup file, setting default parameters")
+            print("Could not find setup file, looking for elsewhere")
             boardsetup = [10, 10, 50]
             
         Board.setDimensions(boardsetup[0], boardsetup[1], boardsetup[2])
@@ -159,6 +160,27 @@ class Board:
                 return False
         return True
         
+        
+        
+        
+def fileSearch(drive_name, data_filename):
+    Found = False
+
+    input_file_name = ""
+    
+    for root, dirs, files in os.walk((drive_name+":\\"), topdown=False):    #search drive for file
+        for name in files:
+            if name == (data_filename):
+                input_file_name = os.path.join(root, name)
+                Found = True
+                break   #exit loop once file is found
+    
+    
+    if Found == True:
+        return input_file_name
+    else:
+        print("Your file was not found.")
+    
         
 
                 

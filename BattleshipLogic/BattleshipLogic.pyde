@@ -7,7 +7,7 @@ from Scoreboard import Scoreboard
 from PlayerInfo import PlayerInfo
 from Interface import Keyboard
 
-gameState = 0 #-1-menu, 0-start screen, 1-ship placement, 2-play
+gameState = -2 #-2-file screen, -1-menu, 0-start screen, 1-ship placement, 2-play
 playerBoard = Board(550, 0)
 computerBoard = Board(0, 0)
 computer = Computer(playerBoard)
@@ -21,6 +21,7 @@ sinkMessager = Messager(450, 50)
 bottomRightButton = Button(500, 510, 200, 80)
 
 title = None
+setupFileName = ""
 menu = Menu(710, 510, 330, 80, [Button(710, 510, 100, 80, "?"), Button(810, 510, 130, 80, "SCORES"), Button(940, 510, 100, 80, "EXIT")])
 instructions = []
 
@@ -58,13 +59,29 @@ def openFile(file):
         return None
     return outList
 
+def setupBoard(selection):
+    global gameState
+    
+    #required for file selection
+    if selection == None:
+        print("Window was closed or the user hit cancel, setting default")
+        Board.setDimensions(10, 10, 50)
+    else:
+        try:
+            Board.setDimensionsFromFile(selection.getAbsolutePath())
+        except:
+            print("error occured, setting default parameters")
+            Board.setDimensions(10, 10, 50)
+    
+    gameState = 0
+
 def setup():
     global playerBoard, computerBoard, title, instructions
     size(1050, 600)
     textAlign(CENTER, CENTER)
     
-    #setup board
-    Board.setDimensionsFromFile("boardsetup.txt")
+    #setup board from file
+    selectInput("Select setup file:", "setupBoard")
     
     #instructions
     instructions = openFile("instructions.txt")
@@ -88,8 +105,15 @@ def draw():
     global gameState, playerBoard, computerBoard, turnMessager, sinkMessager, bottomRightButton, scoreboard, player, menu, menuState, title, instructions
     background(0)
     
-
-    if gameState == -1:
+    if gameState == -2:
+        #display file name
+        fill(255)
+        textSize(40)
+        text("SELECT SETUP FILE", 525, 50)
+        text("(select boardsetup.txt)", 525, 100)
+        textAlign(CENTER, CENTER)
+        
+    elif gameState == -1:
         #menu was clicked
         menu.drawMenu()
         if menuState[1] == 0:
@@ -121,7 +145,7 @@ def draw():
         player.displayName(550, 300)
         textAlign(CENTER, CENTER)
         
-        text("CLICK ANYWHERE TO BEGIN", 500, 400)
+        text("CLICK ANYWHERE TO BEGIN", 525, 400)
         
         #menu
         menu.drawMenu()
@@ -164,9 +188,10 @@ def draw():
         
 def keyPressed():
     global gameState, player
+    
     if gameState == 0:
         #player should enter name in the menu
-        player.name = Keyboard.keyIn(player.name)
+        player.name = Keyboard.keyIn(player.name, 15)
         
 def mousePressed():
     global gameState, playerBoard, computerBoard
@@ -184,7 +209,7 @@ def mouseWheel(event):
 
 def mouseReleased():
     #most logic should go in here
-    global gameState, playerBoard, computerBoard, turn, computer, turnMessager, sinkMessager, bottomRightButton, scoreboard, player, menu, menuState
+    global gameState, playerBoard, computerBoard, turn, computer, turnMessager, sinkMessager, bottomRightButton, scoreboard, player, menu, menuState, setupFileName
     
     #menu takes priority for clicks
     if menu.click() != None:
@@ -224,7 +249,7 @@ def mouseReleased():
         
         
     elif gameState == 2:
-        if not computerBoard.checkLoss() or playerBoard.checkLoss():
+        if not (computerBoard.checkLoss() or playerBoard.checkLoss()):
             if turn:
                 #player clicks for their turn
                 sinkMessager.setMessage("")
@@ -239,17 +264,17 @@ def mouseReleased():
                         scoreboard.updateFile()
                         
                     turn = not(turn)
-                    
-            else:
-                #player clicks anywhere to pass AI's turn
-                computer.makeMove()
                 
-                turnMessager.setMessage("PLAYER'S TURN")
-                
-                if playerBoard.checkLoss():
-                    turnMessager.setMessage("COMPUTER WINS")
+                if not turn: 
+                    #AI's turn
+                    computer.makeMove()
                     
-                turn = not(turn)
+                    turnMessager.setMessage("PLAYER'S TURN")
+                    
+                    if playerBoard.checkLoss():
+                        turnMessager.setMessage("COMPUTER WINS")
+                        
+                    turn = not(turn)
                 
         elif bottomRightButton.isClicked():
             #reset button

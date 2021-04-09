@@ -101,6 +101,7 @@ def binarySearch(colNum, passedList, searchItem):
         else: 
             bottom = middle - 1
         middle = (bottom + top) // 2
+        
     if passedList[middle][colNum] == searchItem:
         return middle
     else:
