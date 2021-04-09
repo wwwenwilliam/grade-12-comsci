@@ -25,7 +25,7 @@ class Board:
                 boardsetup[i] = int(boardsetup[i])
                 
         except IOError:
-            print("Could not find setup file, looking for elsewhere")
+            print("Could not find setup file, setting default")
             boardsetup = [10, 10, 50]
             
         Board.setDimensions(boardsetup[0], boardsetup[1], boardsetup[2])

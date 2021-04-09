@@ -21,7 +21,6 @@ sinkMessager = Messager(450, 50)
 bottomRightButton = Button(500, 510, 200, 80)
 
 title = None
-setupFileName = ""
 menu = Menu(710, 510, 330, 80, [Button(710, 510, 100, 80, "?"), Button(810, 510, 130, 80, "SCORES"), Button(940, 510, 100, 80, "EXIT")])
 instructions = []
 
@@ -209,7 +208,7 @@ def mouseWheel(event):
 
 def mouseReleased():
     #most logic should go in here
-    global gameState, playerBoard, computerBoard, turn, computer, turnMessager, sinkMessager, bottomRightButton, scoreboard, player, menu, menuState, setupFileName
+    global gameState, playerBoard, computerBoard, turn, computer, turnMessager, sinkMessager, bottomRightButton, scoreboard, player, menu, menuState
     
     #menu takes priority for clicks
     if menu.click() != None:
