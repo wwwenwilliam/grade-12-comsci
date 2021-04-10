@@ -264,7 +264,7 @@ def mouseReleased():
                         
                     turn = not(turn)
                 
-                if not turn: 
+                if not turn and not computerBoard.checkLoss(): 
                     #AI's turn
                     computer.makeMove()
                     
