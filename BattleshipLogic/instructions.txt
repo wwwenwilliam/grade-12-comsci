@@ -6,7 +6,7 @@ game has started you cannot move the ships.
 
 Game Play
 You and the AI will take turn firing shots. You fire shots by choosing a location on the left grid
-If you correctly guess a grid space that is occupied by a ship the text will read “hit” and a red
+If you correctly guess a grid space that is occupied by a ship the text will read hit and a red
 marker will be placed on the location you guessed. If you guess incorrectly, the text will read
-“miss” and a white marker will be placed in the location you guessed. Once you have hit every
+miss and a white marker will be placed in the location you guessed. Once you have hit every
 grid of a ship the text will read “you have sunk a ship”. The first player to sink all 5 ships wins. 
